@@ -1,1 +1,2 @@
-student_template_project ...
+
+student template for web front course
