@@ -40,9 +40,7 @@ const setAssignmentInfoBanner = ({ solution, commitSHA }) => {
       module = await import('./your-solution/app');
   }
 
-  
   const { App, commitSHA } = module;
-
   setAssignmentInfoBanner({ commitSHA, solution });
 
   ReactDOM.render(
