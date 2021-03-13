@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- **************************** -->
+<!--         DO NOT TOUCH         -->
+<!-- **************************** -->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>App without React</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div id="assignment-info">
+    01-04 courseinfo without react
+    <div></div>
+  </div>
+
+  <div id="root"></div>
+
+  <script src="./src/myact.js"></script>
+
+  <script>
+
+    const { createElement } = Myact;
+    const { render } = MyactDOM;
+
+    const course = {
+      name: 'Half Stack application development',
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7
+        },
+        {
+          name: 'State of a component',
+          exercises: 14
+        }
+      ]
+    };
+
+  </script>
+
+  <script src="./src/app.js"></script>
+
+  <script>
+
+    document.querySelector('#assignment-info>div:last-child')
+      .textContent = commitSHA;
+
+    const root = document.getElementById('root');
+    render(createElement(App, { course }), root);
+
+  </script>
+
+</body>
+
+</html>

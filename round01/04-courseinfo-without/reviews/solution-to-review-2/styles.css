@@ -1,0 +1,71 @@
+/*******************************
+           DO NOT TOUCH         
+ *******************************/
+
+/* 
+ * Brackets for repository's commit SHA
+ * ------------------------------------
+ */
+
+ #assignment-info>div:last-child::before {
+  /* content: 'your solution: [ ' */
+  /* content: 'solution to review 1: [ ' */
+  content: 'solution to review 2: [ '
+}
+
+#assignment-info>div:last-child::after {
+  content: ' ]'
+}
+
+/*
+ * Assignment Info banner
+ * ---------------------
+ * - your solution:  lightblue
+ * - solution to review 1: lightgreen
+ * - solution to review 2: khaki
+ */
+
+ #assignment-info {
+  /* background-color: lightblue; */
+  /* background-color: lightgreen;  */
+  background-color: khaki;
+  padding: 5px;
+  font-size: smaller;
+}
+
+/* 
+ * Corresponding heading backgrounds on index page
+ * -----------------------------------------------
+ */ 
+
+ h2{
+  padding: 5px;
+}
+h2.your-solution {
+  background-color: lightblue;
+}
+h2.solution-to-review-1 {
+  background-color: lightgreen;   
+}
+h2.solution-to-review-2 {
+  background-color: khaki;  
+}
+
+/*
+ * General page styles
+ * -------------------
+ */
+
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+#root {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
