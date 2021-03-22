@@ -1,47 +1,38 @@
-export const Filter = ({filter, handler}) => {
-  return (
+export const Filter = ({filter, handleChange}) => (
+  <div>
+    filter shown with <input value={filter} onChange={handleChange} />
+  </div>
+)
+
+export const PersonForm = (props) => (
+  <form onSubmit={props.handleSubmit}>
     <div>
-      filter shown with:
-      <input 
-        value={filter}
-        onChange={handler}
-      />
+      name: <input value={props.name} onChange={props.handleName} />
     </div>
-  )
-}
+    <div>
+      number: <input value={props.number} onChange={props.handleNumber} />
+    </div>
+    <div>
+      <button type="submit">add</button>
+    </div>
+  </form>
+)
 
-export const PersonForm = (props) => {
-  return (
-    <form onSubmit={props.submitHandler}>
-        <div>
-          name: 
-          <input 
-           value={props.name}
-           onChange={props.nameHandler}
-           />
-        </div>
-        <div>
-          number: 
-          <input 
-           value={props.number}
-           onChange={props.numberHandler}
-           />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+export const Persons = ({contacts, handleDelete}) => (
+  contacts.map(person => 
+    <Person key={person.name} person={person} handleDelete={handleDelete} />
   )
-}
+)
 
-export const Persons = ({contacts}) => {
-  return contacts.map(
-    person => <Person key={person.name} name={person.name} phone={person.number}/>
-  )
-}
+const Person = ({person, handleDelete}) => (
+  <div>
+    {person.name} {person.number} 
+    <Button handleClick={() => handleDelete(person.name)} />
+  </div>
+)
 
-const Person = ({name, phone}) => {
-  return (
-    <p>{name} {phone}</p>
-  )
-}
+const Button = ({handleClick}) => (
+  <button onClick={handleClick} style={{margin: 3}} >
+    delete
+  </button>
+)
