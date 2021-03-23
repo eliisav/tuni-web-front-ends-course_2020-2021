@@ -52,10 +52,7 @@ export const App = () => {
   }
 
   const deleteContact = (name) => {
-    const copiedContacts = [...contacts]
-    const delIndex = copiedContacts.findIndex(person => person.name === name)
-    copiedContacts.splice(delIndex, 1)
-    setContacts(copiedContacts)
+    setContacts(contacts.filter(person => person.name !== name))
   }
 
   const contactsToShow = contacts.filter(
