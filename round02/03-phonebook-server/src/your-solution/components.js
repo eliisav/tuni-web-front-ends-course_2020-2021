@@ -19,14 +19,14 @@ export const PersonForm = (props) => (
 )
 
 export const Persons = ({contacts, handleDelete}) => (
-  contacts.map(person => 
+  contacts.map(person =>
     <Person key={person.id} person={person} handleDelete={handleDelete} />
   )
 )
 
 const Person = ({person, handleDelete}) => (
   <div>
-    {person.name} {person.number} 
+    {person.name} {person.number}
     <Button handleClick={() => handleDelete(person)} />
   </div>
 )
@@ -36,3 +36,15 @@ const Button = ({handleClick}) => (
     delete
   </button>
 )
+
+export const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className={message.type}>
+      {message.text}
+    </div>
+  )
+}

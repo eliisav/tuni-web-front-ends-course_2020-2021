@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import personService from './person-service'
-import {Filter, PersonForm, Persons} from './components'
+import {Filter, PersonForm, Persons, Notification} from './components'
+import './style.css'
 
 
 // ------------------------------------------------------------ //
@@ -15,6 +16,7 @@ export const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ filter, setFilter ] = useState('')
+  const [ message, setMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -23,6 +25,16 @@ export const App = () => {
         setContacts(persons)
       })
   }, [])
+
+  const notification = (type, text) => {
+    setMessage({
+      type: type,
+      text: text
+    })
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
 
   const addContact = (event) => {
     event.preventDefault()
@@ -36,9 +48,12 @@ export const App = () => {
       }
       
       personService
-        .create(newContact)
-        .then(returnedPerson => {
+        .create(newContact).then(returnedPerson => {
           setContacts(contacts.concat(returnedPerson))
+          notification(
+            'success',
+            `Added ${newName}`
+          )
         })
 
     } else if (window.confirm(
@@ -47,15 +62,24 @@ export const App = () => {
       const updatedContact = {...personFound, number: newNumber}
 
       personService
-        .update(personFound.id, updatedContact)
-        .then(returnedPerson => {
+        .update(personFound.id, updatedContact).then(returnedPerson => {
           setContacts(contacts.map(person => 
-            person.name !== newName ? person : returnedPerson))
+            person.id !== returnedPerson.id ? person : returnedPerson))
+          notification(
+            'success',
+            `Updated ${newName}`
+          )
+        })
+        .catch(error => {
+          notification(
+            'error',
+            `Information of ${newName} has already been removed from server`
+          )
+          setContacts(contacts.filter(person => person.id !== personFound.id))
         })
     }
 
-    // Clear the input fields
-    // no matter what happened
+    // Clear the input fields no matter what happened
     setNewName('')
     setNewNumber('')
   }
@@ -65,15 +89,23 @@ export const App = () => {
   }
 
   const deleteContact = (contact) => {
-    if ( !window.confirm(`Delete ${contact.name}?`) ) {
-      return
+    if ( window.confirm(`Delete ${contact.name}?`) ) {
+      personService
+        .deleteEntry(contact.id).then(response => {
+          setContacts(contacts.filter(person => person.id !== contact.id))
+          notification(
+            'success',
+            `Deleted ${contact.name}`
+          )
+        })
+        .catch(error => {
+          notification(
+            'error',
+            `Information of ${contact.name} had already been deleted from server`
+          )
+          setContacts(contacts.filter(person => person.id !== contact.id))
+        })
     }
-
-    personService
-      .deleteEntry(contact.id)
-      .then(() => {
-        setContacts(contacts.filter(person => person.id !== contact.id))
-      })
   }
 
   const contactsToShow = contacts.filter(
@@ -83,6 +115,8 @@ export const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={message} />
 
       <Filter filter={filter} handleChange={handleChange(setFilter)} />
 
