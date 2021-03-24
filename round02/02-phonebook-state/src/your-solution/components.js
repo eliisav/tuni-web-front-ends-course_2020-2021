@@ -19,14 +19,14 @@ export const PersonForm = (props) => (
 )
 
 export const Persons = ({contacts, handleDelete}) => (
-  contacts.map(person => 
+  contacts.map(person =>
     <Person key={person.name} person={person} handleDelete={handleDelete} />
   )
 )
 
 const Person = ({person, handleDelete}) => (
   <div>
-    {person.name} {person.number} 
+    {person.name} {person.number}
     <Button handleClick={() => handleDelete(person.name)} />
   </div>
 )
