@@ -41,14 +41,14 @@ const CountryInfo = ({country}) => {
 
       <ul>{languages}</ul>
 
-      <div><img src={country.flag} width='200' height='120' /></div>
+      <img src={country.flag} width='200' height='120' />
     </div>
   )
 }
 
 const CountryName = ({country, handleClick}) => (
   <div>
-    {country.name} <Button handleClick={() => handleClick(country)} />
+    {country.name} <Button handleClick={() => handleClick(country.name)} />
   </div>
 )
 

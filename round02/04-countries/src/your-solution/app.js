@@ -6,7 +6,7 @@ import {Filter, Countries} from './components'
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = 'commit-sha-in-here';
+export const commitSHA = 'af5bf32';
 // ------------------------------------------------------------ //
 
 
@@ -26,8 +26,8 @@ export const App = () => {
     setChange(event.target.value)
   }
 
-  const handleClick = (country) =>  {
-    console.log(country)
+  const handleClick = (countryName) =>  {
+    setFilter(countryName)
   }
 
   const countriesToShow = countries.filter(
