@@ -24,7 +24,7 @@ const courses = [
         id: 4
       }
     ]
-  }, 
+  },
   {
     name: 'Node.js',
     id: 2,
