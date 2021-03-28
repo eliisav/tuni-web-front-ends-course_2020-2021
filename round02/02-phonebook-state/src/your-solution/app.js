@@ -6,7 +6,7 @@ import {Filter, PersonForm, Persons} from './components'
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = 'commit-sha-in-here';
+export const commitSHA = '2ddc5fd';
 // ------------------------------------------------------------ //
 
 

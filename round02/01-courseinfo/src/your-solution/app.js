@@ -4,7 +4,7 @@ import courses from './courses-data'
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = 'commit-sha-in-here';
+export const commitSHA = '1daeb51';
 // ------------------------------------------------------------ //
 
 

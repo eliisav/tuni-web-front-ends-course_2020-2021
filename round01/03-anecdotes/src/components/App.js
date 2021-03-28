@@ -4,7 +4,7 @@ import { useState } from 'react'
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = 'commit-sha-in-here';
+export const commitSHA = '5b75879';
 // ------------------------------------------------------------ //
 
 const Header = ({text}) => <h1>{text}</h1>

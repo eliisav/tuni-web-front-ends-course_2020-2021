@@ -7,7 +7,7 @@ import './style.css'
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = 'commit-sha-in-here';
+export const commitSHA = '2bbff01';
 // ------------------------------------------------------------ //
 
 
