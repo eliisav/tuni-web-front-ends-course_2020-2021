@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "review-1": "REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
-    "review-2": "REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
+    "review-1": "cross-env REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
+    "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -32,5 +32,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
