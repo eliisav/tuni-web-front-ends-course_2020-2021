@@ -1,0 +1,16 @@
+{
+  "name": "bloglist-dbms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --port=3004 db.json",
+    "watch": "json-server --watch --port=3004 db.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "^0.16.3"
+  }
+}

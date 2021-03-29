@@ -1,0 +1,36 @@
+{
+  "blogs": [
+    {
+      "title": "eka",
+      "author": "Ned",
+      "url": "http://host/1",
+      "likes": 1,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "title": "toka",
+      "author": "Bart",
+      "url": "http://host/2",
+      "likes": 4,
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "title": "kolm",
+      "author": "Homer",
+      "url": "http://host/3",
+      "likes": 3,
+      "userId": 1,
+      "id": 3
+    }
+  ],
+  "users": [
+    {
+      "username": "ned",
+      "name": "Ned Flanders",
+      "passwordHash": "$2b$10$7.63CIQ07aDwSGEincfU0ub2eoojzQLUJeOpdfLYrcuFkpDwamkW6",
+      "id": 1
+    }
+  ]
+}

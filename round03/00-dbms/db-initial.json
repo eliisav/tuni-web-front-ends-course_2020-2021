@@ -1,0 +1,54 @@
+{
+  "blogs": [
+    {
+      "author": "Arto Hellas",
+      "title": "Ohjelmoinnin MOOC 2019",
+      "likes": 0,
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "author": "Ada Lovelace",
+      "title": "Kääntäjän merkintöjä",
+      "likes": 0,
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "author": "Dan Abramov",
+      "title": "Fundamentals of Redux",
+      "likes": 1,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "author": "Mary Poppendieck",
+      "title": "An Agile Toolkit",
+      "likes": 0,
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "title": "abc",
+      "author": "A. Bc",
+      "url": "http://abc",
+      "likes": 6,
+      "userId": 1,
+      "id": 5
+    }
+  ],
+  "users": [
+    {
+      "username": "test-a",
+      "name": "Test A. Tester",
+      "passwordHash": "$2b$10$1IUpJN0W6Gv2Y7ubbkHbNeZnk8Nm.0I3s3zSjmPIPYfvGwB4K8cwu",
+      "id": 1
+    },
+    {
+      "username": "test-b",
+      "name": "Test B. Tester",
+      "passwordHash": "$2b$10$1IUpJN0W6Gv2Y7ubbkHbNeZnk8Nm.0I3s3zSjmPIPYfvGwB4K8cwu",
+      "id": 2
+    }
+  ]
+}
