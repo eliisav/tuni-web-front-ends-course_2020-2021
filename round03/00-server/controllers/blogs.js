@@ -22,8 +22,17 @@ blogsRouter.post('/', async (request, response, next) => {
     const { token } = request
     // console.log('token', token)
 
-    // causes exception (JsonWebTokenError), if fails 
-    const decodedToken = jwt.verify(token, process.env.SECRET)
+    // --
+    // 2021-03-30 / TiM
+    // const decodedToken = jwt.verify(token, process.env.SECRET)
+    let decodedToken;
+    try {
+      // causes exception (JsonWebTokenError), if fails 
+      decodedToken = jwt.verify(token, process.env.SECRET)
+    } catch (error) {
+      // just continue
+    }
+    // -- 
 
     if (!token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' })
@@ -45,7 +54,7 @@ blogsRouter.post('/', async (request, response, next) => {
     const { data: savedBlog } = await axios.post(blogsURL, blog);
 
     response.status(201).json({
-      ...savedBlog, user 
+      ...savedBlog, user
     })
 
   }
@@ -60,7 +69,17 @@ blogsRouter.delete('/:id', async (request, response, next) => {
     const { token } = request
     const { id } = request.params;
 
-    const decodedToken = jwt.verify(token, process.env.SECRET)
+    // --
+    // 2021-03-30 / TiM
+    // const decodedToken = jwt.verify(token, process.env.SECRET)
+    let decodedToken;
+    try {
+      // causes exception (JsonWebTokenError), if fails 
+      decodedToken = jwt.verify(token, process.env.SECRET)
+    } catch (error) {
+      // just continue
+    }
+    // -- 
 
     if (!token || !decodedToken.id) {
       return response.status(401).json({ error: 'token missing or invalid' })
@@ -86,7 +105,7 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 
 blogsRouter.put('/:id', async (request, response, next) => {
 
-  //TODO Tähän myös token tarkistus
+  // TODO token check in here
 
   const { id } = request.params
   const { likes } = request.body

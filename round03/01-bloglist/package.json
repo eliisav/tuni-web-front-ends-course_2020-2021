@@ -38,8 +38,7 @@
     ]
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "eslint-plugin-jest": "^24.3.2"
+    "cross-env": "^7.0.3"
   },
   "proxy": "http://localhost:3003"
 }
