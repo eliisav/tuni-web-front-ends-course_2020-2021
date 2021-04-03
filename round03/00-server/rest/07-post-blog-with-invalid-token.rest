@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImludmFsaWQiLCJpZCI6IjVjZWNkMjNjZTU5MDMwNDhkNDFhMGQwYyIsImlhdCI6MTU1OTAyNDIzM30.c3EGAwe0Lzjxxitl5-ekigRR9OSEA9Ax4gPrNsN_L6
+
+{
+  "title": "test-auth-invalid-token",
+  "author": "Authorized With Token",
+  "url": "http://localhost",
+  "likes": 0
+}

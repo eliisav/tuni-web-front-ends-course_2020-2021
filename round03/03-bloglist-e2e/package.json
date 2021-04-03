@@ -1,0 +1,39 @@
+{
+  "name": "bloglist-e2e-tests",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "review-1": "cross-env REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
+    "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+    ,
+    "test": "cypress run --config integrationFolder=./src/your-solution",
+    "test-review-1": "cypress run --config integrationFolder=./src/reviews/solution-to-review-1 --env SOLUTION=solution-to-review-1",
+    "test-review-2": "cypress run --config integrationFolder=./src/reviews/solution-to-review-2 --env SOLUTION=solution-to-review-2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "cypress": "^6.8.0"
+  },
+  "proxy": "http://localhost:3003"
+}
