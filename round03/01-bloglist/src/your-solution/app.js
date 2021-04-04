@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Blog, LoginForm } from './components'
+import { Blog, LoginForm, Button } from './components'
 import blogService from './services'
 
 // ------------------------------------------------------------ //
@@ -21,6 +21,15 @@ export const App = () => {
     )
   }, [])
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    if (loggedUserJSON) {
+      const loggedUser = JSON.parse(loggedUserJSON)
+      setUser(loggedUser)
+      blogService.setToken(loggedUser.token)
+    }
+  }, [])
+
   const handleLogin = async (event) => {
     event.preventDefault()
 
@@ -28,6 +37,9 @@ export const App = () => {
       const newLogin = await blogService.login({
         username, password,
       })
+      window.localStorage.setItem(
+        'loggedBlogappUser', JSON.stringify(newLogin)
+      ) 
       setUser(newLogin)
       setUsername('')
       setPassword('')
@@ -38,6 +50,11 @@ export const App = () => {
       //  setErrorMessage(null)
       //}, 5000)
     }
+  }
+
+  const handleClick = () => {
+    window.localStorage.removeItem('loggedBlogappUser')
+    setUser(null)
   }
 
   if (user === null) {
@@ -58,7 +75,7 @@ export const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <p>{user.name} logged in</p>
+      <p>{user.name} logged in <Button handleClick={handleClick} /></p>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

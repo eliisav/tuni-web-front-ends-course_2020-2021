@@ -12,7 +12,7 @@ export const LoginForm = ({
   handlePasswordChange,
   username,
   password
-}) => {
+  }) => {
   return (
     <form onSubmit={handleSubmit}>
     <div>
@@ -37,3 +37,9 @@ export const LoginForm = ({
     </form>
   )
 }
+
+export const Button = ({handleClick}) => (
+  <button onClick={handleClick} style={{margin: 3}} >
+    logout
+  </button>
+)
