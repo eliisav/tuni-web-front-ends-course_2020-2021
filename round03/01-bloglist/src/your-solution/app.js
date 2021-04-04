@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Blog, LoginForm, Button, BlogForm} from './components'
+import { Blog, LoginForm, Button, BlogForm, Notification} from './components'
 import blogService from './services'
 
 // ------------------------------------------------------------ //
@@ -17,6 +17,7 @@ export const App = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -33,6 +34,16 @@ export const App = () => {
     }
   }, [])
 
+  const notification = (type, text) => {
+    setMessage({
+      type: type,
+      text: text
+    })
+    setTimeout(() => {
+      setMessage(null)
+    }, 5000)
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
 
@@ -47,18 +58,25 @@ export const App = () => {
       setUser(newLogin)
       setUsername('')
       setPassword('')
+      notification(
+        'success',
+        `user '${newLogin.username}' logged in`
+      )
     } catch (exception) {
-      console.log('eerrrroooor')
-      //setErrorMessage('wrong credentials')
-      //setTimeout(() => {
-      //  setErrorMessage(null)
-      //}, 5000)
+      notification(
+        'error',
+        `wrong username or password`
+      )
     }
   }
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogappUser')
     setUser(null)
+    notification(
+      'success',
+      `user '${user.username}' logged out`
+    )
   }
 
   const createBlog = async (event) => {
@@ -71,8 +89,15 @@ export const App = () => {
       setTitle('')
       setAuthor('')
       setUrl('')
+      notification(
+        'success',
+        `a new blog ${newBlog.title} by ${newBlog.author} added`
+      )
     } catch (exeption) {
-      console.log('eerrrroooor')
+      notification(
+        'error',
+        `failed to create new blog`
+      )
     }
   }
 
@@ -80,6 +105,9 @@ export const App = () => {
     return (
       <div>
         <h2>log in to application</h2>
+
+        <Notification message={message} />
+
         <LoginForm
           username={username}
           password={password}
@@ -94,6 +122,9 @@ export const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+
+      <Notification message={message} />
+
       <p>{user.name} logged in <Button handleClick={handleLogout} /></p>
 
       <h2>create new</h2>
