@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 export const Blog = ({blog}) => (
   <div>
@@ -15,25 +15,25 @@ export const LoginForm = ({
   }) => {
   return (
     <form onSubmit={handleSubmit}>
-    <div>
-      username
+      <div>
+        username
         <input
-        type="text"
-        value={username}
-        name="Username"
-        onChange={handleUsernameChange}
-      />
-    </div>
-    <div>
-      password
+          type="text"
+          value={username}
+          name="Username"
+          onChange={handleUsernameChange}
+        />
+      </div>
+      <div>
+        password
         <input
-        type="password"
-        value={password}
-        name="Password"
-        onChange={handlePasswordChange}
-      />
-    </div>
-    <button type="submit">login</button>
+          type="password"
+          value={password}
+          name="Password"
+          onChange={handlePasswordChange}
+        />
+      </div>
+      <button type="submit">login</button>
     </form>
   )
 }
@@ -43,3 +43,28 @@ export const Button = ({handleClick}) => (
     logout
   </button>
 )
+
+export const BlogForm = ({
+  handleSubmit,
+  handleTitleChange,
+  handleAuthorChange,
+  handleUrlChange,
+  title,
+  author,
+  url
+  }) => {
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        title: <input value={title} onChange={handleTitleChange}/>
+      </div>
+      <div>
+        author: <input value={author} onChange={handleAuthorChange}/>
+      </div>
+      <div>
+        url: <input type="url" value={url} onChange={handleUrlChange}/>
+      </div>
+      <button type="submit">create</button>
+    </form>
+  )
+}
