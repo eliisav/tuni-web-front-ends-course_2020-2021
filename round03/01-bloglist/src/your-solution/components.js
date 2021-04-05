@@ -1,10 +1,40 @@
 import React, { useState, useImperativeHandle } from 'react'
 
-export const Blog = ({blog}) => (
-  <div>
-    {blog.title} {blog.author}
-  </div>  
-)
+export const Blog = ({blog, user}) => {
+  const [showAll, setShowAll] = useState(false)
+
+  const toggleAll = { display: showAll ? '' : 'none' }
+  const buttonLabel = showAll ? "hide" : "view"
+
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
+  }
+
+  return (
+    <div style={blogStyle}>
+      <div>
+        {blog.title} {blog.author}
+        <button onClick={() => setShowAll(!showAll)}>
+          {buttonLabel}
+        </button>
+      </div>
+      <div style={toggleAll}>
+        <div>{blog.url}</div>
+        <div>
+          likes {blog.likes}
+          <button onClick={() => console.log("button clicked")}>
+            like
+          </button>
+        </div>
+        {user.name}
+      </div>
+    </div>
+  )
+}
 
 export const LoginForm = ({
   handleSubmit,
@@ -51,7 +81,8 @@ export const BlogForm = ({createBlog}) => {
 
   const addBlog = (event) => {
     event.preventDefault()
-    createBlog({title, author, url})
+    const likes = 0
+    createBlog({title, author, url, likes})
     setTitle('')
     setAuthor('')
     setUrl('')
