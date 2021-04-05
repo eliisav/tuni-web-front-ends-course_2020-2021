@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useImperativeHandle } from 'react'
 
 export const Blog = ({blog}) => (
   <div>
@@ -44,28 +44,48 @@ export const Button = ({handleClick}) => (
   </button>
 )
 
-export const BlogForm = ({
-  handleSubmit,
-  handleTitleChange,
-  handleAuthorChange,
-  handleUrlChange,
-  title,
-  author,
-  url
-  }) => {
+export const BlogForm = ({createBlog}) => {
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+
+  const addBlog = (event) => {
+    event.preventDefault()
+    createBlog({title, author, url})
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+  }
+  
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        title: <input value={title} onChange={handleTitleChange}/>
-      </div>
-      <div>
-        author: <input value={author} onChange={handleAuthorChange}/>
-      </div>
-      <div>
-        url: <input type="url" value={url} onChange={handleUrlChange}/>
-      </div>
-      <button type="submit">create</button>
-    </form>
+    <div>
+      <h2>create new</h2>
+      <form onSubmit={addBlog}>
+        <div>
+          title:
+          <input
+            value={title}
+            onChange={({ target }) => setTitle(target.value)}
+          />
+        </div>
+        <div>
+          author:
+          <input
+            value={author}
+            onChange={({ target }) => setAuthor(target.value)}
+          />
+        </div>
+        <div>
+          url:
+          <input
+            type="url"
+            value={url}
+            onChange={({ target }) => setUrl(target.value)}
+          />
+        </div>
+        <button type="submit">create</button>
+      </form>
+    </div>
   )
 }
 
@@ -90,3 +110,32 @@ export const Notification = ({ message }) => {
     </div>
   )
 }
+
+export const Togglable = React.forwardRef((props, ref) => {
+  const [visible, setVisible] = useState(false)
+
+  const hideWhenVisible = { display: visible ? 'none' : '' }
+  const showWhenVisible = { display: visible ? '' : 'none' }
+
+  const toggleVisibility = () => {
+    setVisible(!visible)
+  }
+
+  useImperativeHandle(ref, () => {
+    return {
+      toggleVisibility
+    }
+  })
+
+  return (
+    <div>
+      <div style={hideWhenVisible}>
+        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+      </div>
+      <div style={showWhenVisible}>
+        {props.children}
+        <button onClick={toggleVisibility}>cancel</button>
+      </div>
+    </div>
+  )
+})
