@@ -1,10 +1,23 @@
 import React, { useState, useImperativeHandle } from 'react'
 
-export const Blog = ({blog, user}) => {
+export const Blog = ({blog, handleLikeClick, user, handleDelete}) => {
   const [showAll, setShowAll] = useState(false)
 
   const toggleAll = { display: showAll ? '' : 'none' }
   const buttonLabel = showAll ? "hide" : "view"
+
+  const removeButton = () => {
+    if (user.username === blog.user.username) {
+      return (
+        <Button
+          handleClick={() => handleDelete(blog)}
+          text="remove"
+        />
+      )
+    } else {
+      return null
+    }
+  }
 
   const blogStyle = {
     paddingTop: 10,
@@ -14,23 +27,28 @@ export const Blog = ({blog, user}) => {
     marginBottom: 5
   }
 
+  //console.log(blog)
+
   return (
     <div style={blogStyle}>
       <div>
         {blog.title} {blog.author}
-        <button onClick={() => setShowAll(!showAll)}>
-          {buttonLabel}
-        </button>
+        <Button
+          handleClick={() => setShowAll(!showAll)}
+          text={buttonLabel}
+        />
       </div>
       <div style={toggleAll}>
         <div>{blog.url}</div>
         <div>
           likes {blog.likes}
-          <button onClick={() => console.log("button clicked")}>
-            like
-          </button>
+          <Button
+            handleClick={() => handleLikeClick(blog)}
+            text="like"
+          />
         </div>
-        {user.name}
+        <div>{blog.user.name}</div>
+        {removeButton()}
       </div>
     </div>
   )
@@ -68,9 +86,9 @@ export const LoginForm = ({
   )
 }
 
-export const Button = ({handleClick}) => (
+export const Button = ({handleClick, text}) => (
   <button onClick={handleClick} style={{margin: 3}} >
-    logout
+    {text}
   </button>
 )
 

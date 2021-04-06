@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Blog, LoginForm, Togglable, BlogForm, Notification} from './components'
+import { Blog, LoginForm, Togglable, BlogForm, Notification, Button} from './components'
 import blogService from './services'
 
 // ------------------------------------------------------------ //
@@ -95,6 +95,50 @@ export const App = () => {
     }
   }
 
+  const updateBlogLikes = (blogToUpdate) => {
+    const updatedBlog = {...blogToUpdate, likes: blogToUpdate.likes + 1}
+    blogService
+      .update(updatedBlog.id, updatedBlog).then(returnedBlog => {
+        setBlogs(blogs.map(blog => 
+          blog.id !== returnedBlog.id ? blog : returnedBlog))
+        notification(
+          'success',
+          `You liked ${returnedBlog.title}`
+        )
+      })
+      .catch(error => {
+        notification(
+          'error',
+          `Information of ${blogToUpdate.title} has already been removed from server`
+        )
+        setBlogs(blogs.filter(blog => blog.id !== blogToUpdate.id))
+      })
+  }
+
+  const deleteBlog = (blogToDelete) => {
+    if ( window.confirm(
+      `Remove blog ${blogToDelete.title} by ${blogToDelete.author}`
+    ) ) {
+      blogService
+        .remove(blogToDelete.id).then(response => {
+          setBlogs(blogs.filter(blog => blog.id !== blogToDelete.id))
+          notification(
+            'success',
+            `Deleted ${blogToDelete.title}`
+          )
+        })
+        .catch(error => {
+          notification(
+            'error',
+            `Information of ${blogToDelete.title} had already been deleted from server`
+          )
+          setBlogs(blogs.filter(blog => blog.id !== blogToDelete.id))
+        })
+    }
+  }
+
+  const sortedBlogs = [...blogs].sort((a, b) => b.likes - a.likes)
+
   if (user === null) {
     return (
       <div>
@@ -121,15 +165,21 @@ export const App = () => {
 
       <p>
         {user.name} logged in 
-        <button onClick={handleLogout}>logout</button>
+        <Button handleClick={handleLogout} text="logout"/>
       </p>
 
       <Togglable buttonLabel="create new blog" ref={blogFormRef}>
         <BlogForm createBlog={createBlog}/>
       </Togglable>
 
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user}/>
+      {sortedBlogs.map(blog =>
+        <Blog
+          key={blog.id}
+          blog={blog}
+          handleLikeClick={updateBlogLikes}
+          handleDelete={deleteBlog}
+          user={user}
+        />
       )}
     </div>
   )
