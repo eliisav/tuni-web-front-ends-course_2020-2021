@@ -1,10 +1,11 @@
 import React, { useState, useImperativeHandle } from 'react'
+import PropTypes from 'prop-types'
 
-export const Blog = ({blog, handleLikeClick, user, handleDelete}) => {
+export const Blog = ({ blog, handleLikeClick, user, handleDelete }) => {
   const [showAll, setShowAll] = useState(false)
 
   const toggleAll = { display: showAll ? '' : 'none' }
-  const buttonLabel = showAll ? "hide" : "view"
+  const buttonLabel = showAll ? 'hide' : 'view'
 
   const removeButton = () => {
     if (user.username === blog.user.username) {
@@ -60,7 +61,7 @@ export const LoginForm = ({
   handlePasswordChange,
   username,
   password
-  }) => {
+}) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -86,13 +87,13 @@ export const LoginForm = ({
   )
 }
 
-export const Button = ({handleClick, text}) => (
-  <button onClick={handleClick} style={{margin: 3}} >
+export const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick} style={{ margin: 3 }} >
     {text}
   </button>
 )
 
-export const BlogForm = ({createBlog}) => {
+export const BlogForm = ({ createBlog }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -100,12 +101,12 @@ export const BlogForm = ({createBlog}) => {
   const addBlog = (event) => {
     event.preventDefault()
     const likes = 0
-    createBlog({title, author, url, likes})
+    createBlog({ title, author, url, likes })
     setTitle('')
     setAuthor('')
     setUrl('')
   }
-  
+
   return (
     <div>
       <h2>create new</h2>
@@ -188,3 +189,9 @@ export const Togglable = React.forwardRef((props, ref) => {
     </div>
   )
 })
+
+Togglable.displayName = 'Togglable'
+
+Togglable.propTypes = {
+  buttonLabel: PropTypes.string.isRequired
+}

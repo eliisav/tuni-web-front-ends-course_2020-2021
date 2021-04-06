@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Blog, LoginForm, Togglable, BlogForm, Notification, Button} from './components'
+import { Blog, LoginForm, Togglable, BlogForm, Notification, Button } from './components'
 import blogService from './services'
 
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = '-commit-sha-in-here-'
 // ------------------------------------------------------------ //
 
 
 export const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState(null)
@@ -64,7 +64,7 @@ export const App = () => {
     } catch (exception) {
       notification(
         'error',
-        `wrong username or password`
+        'wrong username or password'
       )
     }
   }
@@ -90,23 +90,23 @@ export const App = () => {
     } catch (exeption) {
       notification(
         'error',
-        `failed to create new blog`
+        'failed to create new blog'
       )
     }
   }
 
   const updateBlogLikes = (blogToUpdate) => {
-    const updatedBlog = {...blogToUpdate, likes: blogToUpdate.likes + 1}
+    const updatedBlog = { ...blogToUpdate, likes: blogToUpdate.likes + 1 }
     blogService
       .update(updatedBlog.id, updatedBlog).then(returnedBlog => {
-        setBlogs(blogs.map(blog => 
+        setBlogs(blogs.map(blog =>
           blog.id !== returnedBlog.id ? blog : returnedBlog))
         notification(
           'success',
           `You liked ${returnedBlog.title}`
         )
       })
-      .catch(error => {
+      .catch(() => {
         notification(
           'error',
           `Information of ${blogToUpdate.title} has already been removed from server`
@@ -120,14 +120,14 @@ export const App = () => {
       `Remove blog ${blogToDelete.title} by ${blogToDelete.author}`
     ) ) {
       blogService
-        .remove(blogToDelete.id).then(response => {
+        .remove(blogToDelete.id).then(() => {
           setBlogs(blogs.filter(blog => blog.id !== blogToDelete.id))
           notification(
             'success',
             `Deleted ${blogToDelete.title}`
           )
         })
-        .catch(error => {
+        .catch(() => {
           notification(
             'error',
             `Information of ${blogToDelete.title} had already been deleted from server`
@@ -164,7 +164,7 @@ export const App = () => {
       <Notification message={message} />
 
       <p>
-        {user.name} logged in 
+        {user.name} logged in
         <Button handleClick={handleLogout} text="logout"/>
       </p>
 
