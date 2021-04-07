@@ -13,8 +13,7 @@
     "review-1": "cross-env REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
     "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
-    ,
+    "eject": "react-scripts eject",
     "test": "cypress run --config integrationFolder=./src/your-solution",
     "test-review-1": "cypress run --config integrationFolder=./src/reviews/solution-to-review-1 --env SOLUTION=solution-to-review-1",
     "test-review-2": "cypress run --config integrationFolder=./src/reviews/solution-to-review-2 --env SOLUTION=solution-to-review-2"
