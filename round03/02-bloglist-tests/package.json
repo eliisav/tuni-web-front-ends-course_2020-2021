@@ -11,16 +11,12 @@
   "scripts": {
     "start": "react-scripts start",
     "review-1": "cross-env REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
-    "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start"
-    ,
-    "build": "react-scripts build"
-    ,
+    "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false src/your-solution",
     "test-review-1": "cross-env SOLUTION=solution-to-review-1 react-scripts test --watchAll=false src/reviews/solution-to-review-1",
-    "test-review-2": "cross-env SOLUTION=solution-to-review-2 react-scripts test --watchAll=false src/reviews/solution-to-review-2"
-    ,
-    "eject": "react-scripts eject"
-    ,
+    "test-review-2": "cross-env SOLUTION=solution-to-review-2 react-scripts test --watchAll=false src/reviews/solution-to-review-2",
+    "eject": "react-scripts eject",
     "lint": "eslint ./src/your-solution",
     "lint-review-1": "eslint ./src/reviews/solution-to-review-1",
     "lint-review-2": "eslint ./src/reviews/solution-to-review-2"
