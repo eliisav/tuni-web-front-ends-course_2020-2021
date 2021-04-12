@@ -17,9 +17,7 @@
     "review-1": "cross-env REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
     "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
     "build": "react-scripts build",
-    "xtest": "react-scripts test",
-    "ytest": "react-scripts test --watchAll=false src/your-solution",
-    "test": "react-scripts test --watchAll=false src/fullstack-steps/step1",
+    "test": "react-scripts test --watchAll=false src/your-solution",
     "test-review-1": "cross-env SOLUTION=solution-to-review-1 react-scripts test --watchAll=false src/reviews/solution-to-review-1",
     "test-review-2": "cross-env SOLUTION=solution-to-review-2 react-scripts test --watchAll=false src/reviews/solution-to-review-2",
     "eject": "react-scripts eject"
