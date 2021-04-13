@@ -6,7 +6,7 @@ import { render, fireEvent } from '@testing-library/react'
 import { Blog, BlogForm } from './components'
 
 // *** ENTER COMMIT SHA OF YOUR REPO IN HERE ***
-const commitSHA = 'commit-sha-in-here'
+const commitSHA = '12a3092'
 
 // *** DO NOT REMOVE OR CHANGE THIS LINE ***
 describe(`\nCOMPONENT TESTS ${process.env.SOLUTION || 'your-solution'} [ ${commitSHA} ]\n`, () => {

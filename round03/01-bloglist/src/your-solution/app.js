@@ -5,7 +5,7 @@ import blogService from './services'
 // ------------------------------------------------------------ //
 // ENTER COMMIT SHA OF YOUR REPO IN HERE                        //
 // ------------------------------------------------------------ //
-export const commitSHA = '-commit-sha-in-here-'
+export const commitSHA = '12a3092'
 // ------------------------------------------------------------ //
 
 

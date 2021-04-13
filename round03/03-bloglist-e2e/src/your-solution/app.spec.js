@@ -1,6 +1,6 @@
 
 // *** ENTER COMMIT SHA OF YOUR REPO IN HERE ***
-const commitSHA = '-commit-sha-in-here-'
+const commitSHA = '12a3092'
 
 // *** DO NOT REMOVE OR CHANGE THIS LINE ***
 describe(`\nEND TO END TESTS: ${Cypress.env('SOLUTION') || 'your-solution'} [ ${commitSHA} ]\n`, function () {
