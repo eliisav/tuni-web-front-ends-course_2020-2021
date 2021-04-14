@@ -1,12 +1,16 @@
 {
-  "name": "bloglist-tests",
+  "name": "unicafe-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.21.1",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.6.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "4.0.2"
+    "react-scripts": "4.0.2",
+    "redux": "^4.0.5",
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -16,10 +20,7 @@
     "test": "react-scripts test --watchAll=false src/your-solution",
     "test-review-1": "cross-env SOLUTION=solution-to-review-1 react-scripts test --watchAll=false src/reviews/solution-to-review-1",
     "test-review-2": "cross-env SOLUTION=solution-to-review-2 react-scripts test --watchAll=false src/reviews/solution-to-review-2",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src/your-solution",
-    "lint-review-1": "eslint ./src/reviews/solution-to-review-1",
-    "lint-review-2": "eslint ./src/reviews/solution-to-review-2"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -40,9 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.5",
-    "cross-env": "^7.0.3"
-  },
-  "proxy": "http://localhost:3003"
+    "cross-env": "^7.0.3",
+    "deep-freeze": "0.0.1"
+  }
 }

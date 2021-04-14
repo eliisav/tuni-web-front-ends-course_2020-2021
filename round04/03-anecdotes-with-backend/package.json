@@ -1,25 +1,28 @@
 {
-  "name": "bloglist-tests",
+  "name": "anecdotes-with-backend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.6.3",
     "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-scripts": "4.0.2"
+    "react-redux": "^7.2.2",
+    "react-scripts": "4.0.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
+    "server": "json-server -p3001 --watch db.json",
     "start": "react-scripts start",
     "review-1": "cross-env REACT_APP_SOLUTION=solution-to-review-1 react-scripts start",
     "review-2": "cross-env REACT_APP_SOLUTION=solution-to-review-2 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false src/your-solution",
-    "test-review-1": "cross-env SOLUTION=solution-to-review-1 react-scripts test --watchAll=false src/reviews/solution-to-review-1",
-    "test-review-2": "cross-env SOLUTION=solution-to-review-2 react-scripts test --watchAll=false src/reviews/solution-to-review-2",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src/your-solution",
-    "lint-review-1": "eslint ./src/reviews/solution-to-review-1",
-    "lint-review-2": "eslint ./src/reviews/solution-to-review-2"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -40,9 +43,8 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.5",
-    "cross-env": "^7.0.3"
-  },
-  "proxy": "http://localhost:3003"
+    "cross-env": "^7.0.3",
+    "json-server": "^0.16.3",
+    "redux-devtools-extension": "^2.13.9"
+  }
 }
