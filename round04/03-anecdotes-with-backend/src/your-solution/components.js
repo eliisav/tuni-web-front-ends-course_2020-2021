@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAnecdote, voteAnecdote } from './anecdoteReducer'
@@ -55,7 +54,7 @@ export const AnecdoteList = () => {
   const sortedAnecdotes = [...anecdotes].sort((a, b) => b.votes - a.votes)
 
   const vote = (anecdote) => {
-    dispatch(voteAnecdote(anecdote.id))
+    dispatch(voteAnecdote(anecdote))
     dispatch(setMessage(`you voted '${anecdote.content}'`))
     setTimeout(() => {
       dispatch(clearMessage())
