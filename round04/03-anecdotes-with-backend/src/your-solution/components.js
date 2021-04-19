@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createAnecdote, voteAnecdote } from './anecdoteReducer'
 import { setMessage, clearMessage } from './notificationReducer'
 import { setFilter } from './filterReducer'
-import anecdoteService from './services'
 
 export const Notification = () => {
   const notification = useSelector(state => state.notification)
@@ -29,8 +28,7 @@ export const AnecdoteForm = () => {
     event.preventDefault()
     const anecdote = event.target.anecdote.value
     event.target.anecdote.value = ''
-    const newAnecdote = await anecdoteService.createNew(anecdote)
-    dispatch(createAnecdote(newAnecdote))
+    dispatch(createAnecdote(anecdote))
     dispatch(setMessage(`you created '${anecdote}'`))
     setTimeout(() => {
       dispatch(clearMessage())

@@ -1,3 +1,5 @@
+import anecdoteService from './services'
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -41,17 +43,23 @@ const anecdoteReducer = (state = [], action) => {
 
 }
 
-export const initializeAnecdotes = (anecdotes) => {
-  return {
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
       type: 'INIT',
       data: anecdotes
+    })
   }
 }
 
 export const createAnecdote = (anecdote) => {
-  return {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(anecdote)
+    dispatch({
       type: 'NEW',
-      data: anecdote
+      data: newAnecdote
+    })
   }
 }
 
