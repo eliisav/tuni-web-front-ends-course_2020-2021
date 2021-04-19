@@ -19,9 +19,9 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
+const anecdoteReducer = (state = initialState, action) => {
+  //console.log('anecdote state now: ', state)
+  //console.log('anecdote action', action)
 
   switch (action.type) {
     case 'VOTE':
@@ -33,8 +33,7 @@ const reducer = (state = initialState, action) => {
       return state.map(anecdote =>
         anecdote.id !== id ? anecdote : votedAnecdote)
     case 'NEW':
-      const newAnecdote = asObject(action.data.anecdote)
-      return [...state, newAnecdote]
+      return [...state, action.data]
     default: return state
   }
 
@@ -43,7 +42,7 @@ const reducer = (state = initialState, action) => {
 export const createAnecdote = (anecdote) => {
   return {
       type: 'NEW',
-      data: { anecdote }
+      data: asObject(anecdote)
   }
 }
 
@@ -54,4 +53,4 @@ export const voteAnecdote = (id) => {
   }
 }
 
-export default reducer
+export default anecdoteReducer
