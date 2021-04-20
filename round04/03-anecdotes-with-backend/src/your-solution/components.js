@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAnecdote, voteAnecdote } from './anecdoteReducer'
-import { setMessage, clearMessage } from './notificationReducer'
+import { showMessage } from './notificationReducer'
 import { setFilter } from './filterReducer'
 
 export const Notification = () => {
@@ -28,10 +28,7 @@ export const AnecdoteForm = () => {
     const anecdote = event.target.anecdote.value
     event.target.anecdote.value = ''
     dispatch(createAnecdote(anecdote))
-    dispatch(setMessage(`you created '${anecdote}'`))
-    setTimeout(() => {
-      dispatch(clearMessage())
-    }, 5000)
+    dispatch(showMessage(`you created '${anecdote}'`, 5))
   }
 
   return (
@@ -55,10 +52,7 @@ export const AnecdoteList = () => {
 
   const vote = (anecdote) => {
     dispatch(voteAnecdote(anecdote))
-    dispatch(setMessage(`you voted '${anecdote.content}'`))
-    setTimeout(() => {
-      dispatch(clearMessage())
-    }, 5000)
+    dispatch(showMessage(`you voted '${anecdote.content}'`, 5))
   }
 
   return (
