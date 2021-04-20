@@ -2,7 +2,7 @@ import deepFreeze from 'deep-freeze'
 import counterReducer from './reducer'
 
 // *** enter commit sha of your repository in here ***
-const commitSHA = 'commit-sha-in-here'
+const commitSHA = 'fe545d8'
 
 // *** do not remove or change this line ***
 describe(`\nUNIT TESTS ${process.env.SOLUTION || 'your-solution'} [ ${commitSHA} ]\n`, () => {
@@ -70,7 +70,7 @@ describe(`\nUNIT TESTS ${process.env.SOLUTION || 'your-solution'} [ ${commitSHA}
       })
     })
 
-    test('reset stats resets all values to zero ', () => {
+    test('reset stats resets all values to zero', () => {
       const action = {
         type: 'ZERO'
       }
@@ -86,6 +86,25 @@ describe(`\nUNIT TESTS ${process.env.SOLUTION || 'your-solution'} [ ${commitSHA}
         good: 0,
         ok: 0,
         bad: 0
+      })
+    })
+
+    test('unknown action does not change state', () => {
+      const action = {
+        type: 'UNKNOWN'
+      }
+      const state = {
+        good: 3,
+        ok: 5,
+        bad: 2
+      }
+
+      deepFreeze(state)
+      const newState = counterReducer(state, action)
+      expect(newState).toEqual({
+        good: 3,
+        ok: 5,
+        bad: 2
       })
     })
   })
