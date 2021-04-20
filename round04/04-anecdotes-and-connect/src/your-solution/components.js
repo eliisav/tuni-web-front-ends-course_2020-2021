@@ -4,7 +4,7 @@ import { createAnecdote, voteAnecdote } from './anecdoteReducer'
 import { showMessage} from './notificationReducer'
 import { setFilter } from './filterReducer'
 
-const NotificationArea = (props) => {
+const Notification = (props) => {
   const style = {
     border: 'solid',
     padding: 10,
@@ -24,9 +24,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-export const Notification = connect(mapStateToProps)(NotificationArea)
+export const ConnectedNotification = connect(mapStateToProps)(Notification)
 
-const NewAnecdote = (props) => {
+const AnecdoteForm = (props) => {
   const addAnecdote = async (event) => {
     event.preventDefault()
     const anecdote = event.target.anecdote.value
@@ -51,7 +51,7 @@ const mapDispatchToProps = {
   showMessage,
 }
 
-export const AnecdoteForm = connect(null, mapDispatchToProps)(NewAnecdote)
+export const ConnectedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm)
 
 export const AnecdoteList = () => {
   const dispatch = useDispatch()
@@ -83,7 +83,7 @@ export const AnecdoteList = () => {
   )
 }
 
-const FilterField = (props) => {
+const Filter = (props) => {
   const handleChange = (event) => {
     props.setFilter(event.target.value)
   }
@@ -99,4 +99,4 @@ const FilterField = (props) => {
   )
 }
 
-export const Filter = connect(null, { setFilter })(FilterField)
+export const ConnectedFilter = connect(null, { setFilter })(Filter)
