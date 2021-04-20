@@ -14,16 +14,19 @@ const notificationReducer = (state = initialState, action) => {
 
 }
 
-export const setMessage = (msg) => {
-  return {
-    type: 'SET_MSG',
-    data: { msg }
-  }
-}
+let timeoutID;
 
-export const clearMessage = () => {
-  return {
-    type: 'CLEAR_MSG'
+export const showMessage = (msg, time) => {
+  return async dispatch => {
+    await dispatch({type: 'SET_MSG', data: { msg }})
+
+    clearTimeout(timeoutID)
+
+    timeoutID = setTimeout(() => {
+      dispatch({
+        type: 'CLEAR_MSG'
+      })
+    }, time*1000)
   }
 }
 
