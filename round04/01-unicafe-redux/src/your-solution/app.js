@@ -3,7 +3,7 @@ import { createStore } from 'redux'
 import reducer from './reducer'
 
 // ** enter commit sha of your repository in here **
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = 'fc61385';
 
 
 export const store = createStore(reducer)

@@ -2,7 +2,7 @@ import deepFreeze from 'deep-freeze'
 import counterReducer from './reducer'
 
 // *** enter commit sha of your repository in here ***
-const commitSHA = 'fe545d8'
+const commitSHA = 'fc61385'
 
 // *** do not remove or change this line ***
 describe(`\nUNIT TESTS ${process.env.SOLUTION || 'your-solution'} [ ${commitSHA} ]\n`, () => {

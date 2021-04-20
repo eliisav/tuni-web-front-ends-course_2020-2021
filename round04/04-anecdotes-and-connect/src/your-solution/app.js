@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 export {default as store} from './store'
 
 // ** enter commit sha of your repository in here **
-export const commitSHA = '95ad057';
+export const commitSHA = '1bd3fcb';
 
 export const App = () => {
   const dispatch = useDispatch()
