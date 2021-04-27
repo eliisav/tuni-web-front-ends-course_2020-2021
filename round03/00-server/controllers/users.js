@@ -7,7 +7,12 @@ const usersURL = 'http://localhost:3004/users';
 
 router.get('/', async (request, response) => {
 
-    const res = await axios.get(usersURL);
+    // --
+    // 2021-04-26 / TiM
+    // const res = await axios.get(usersURL);
+    const res = await axios.get(`${usersURL}?_embed=blogs`);
+    // --
+
     response.json(res.data);
 })
 
