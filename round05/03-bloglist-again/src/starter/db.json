@@ -1,0 +1,45 @@
+{
+  "blogs": [
+    {
+      "title": "toka",
+      "author": "Bart",
+      "url": "http://host/2",
+      "likes": 12,
+      "userId": 1,
+      "id": 2,
+      "comments": [
+        "kommentti 1",
+        "kommentti 2"
+      ]
+    },
+    {
+      "title": "kolm",
+      "author": "Homer",
+      "url": "http://host/3",
+      "likes": 4,
+      "userId": 1,
+      "id": 3,
+      "comments": []
+    }
+  ],
+  "users": [
+    {
+      "username": "ned",
+      "name": "Ned Flanders",
+      "passwordHash": "$2b$10$7.63CIQ07aDwSGEincfU0ub2eoojzQLUJeOpdfLYrcuFkpDwamkW6",
+      "id": 1
+    },
+    {
+      "username": "bart",
+      "name": "Bart Simpson",
+      "passwordHash": "$2b$10$wPX3/4jpHw1OX4wSOslFkOUQl7pimsLsHKXHHolGJr8dgZCfMlhha",
+      "id": 3
+    },
+    {
+      "username": "homer",
+      "name": "Homer Simpson",
+      "passwordHash": "$2b$10$za8nxuoeSZ7ggs0jB1PUseurneKT9.f5S0adVRsMEadRx9wczYLwq",
+      "id": 4
+    }
+  ]
+}

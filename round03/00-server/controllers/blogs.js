@@ -105,14 +105,24 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 
 blogsRouter.put('/:id', async (request, response, next) => {
 
-  // TODO token check in here
+  //TODO token check in here
 
   const { id } = request.params
-  const { likes } = request.body
+
+  // --
+  // 2021-04-26 / TiM
+  // const { likes } = request.body
+  const { likes, comments } = request.body
+  // -- 
 
   try {
 
-    const updatedBlog = await axios.patch(`${blogsURL}/${id}`, { likes })
+    // --
+    // 2021-04-26 / TiM
+    // const updatedBlog = await axios.patch(`${blogsURL}/${id}`, { likes })
+    const updatedBlog = await axios.patch(`${blogsURL}/${id}`, { likes, comments })
+    // -- 
+
     response.json(request.body)
   }
   catch (error) { next(error) }
