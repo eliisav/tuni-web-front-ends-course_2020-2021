@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch, Route, Link, useParams
+  Switch, Route, Link, useParams, useHistory
 } from "react-router-dom"
 
 // ** enter commit sha of your repository in here **
@@ -21,7 +21,7 @@ const Menu = () => {
   )
 }
 
-const AnecdoteList = ({ anecdotes }) => (
+const AnecdoteList = ({ anecdotes, notification }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
@@ -73,6 +73,7 @@ const CreateNew = (props) => {
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
+  const history = useHistory()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -82,6 +83,7 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
+    history.push('/')
   }
 
   return (
@@ -130,6 +132,10 @@ export const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`a new anecdote ${anecdote.content} created!`)
+    setTimeout(() => {
+      setNotification(null)
+    }, 10000)
   }
 
   const anecdoteById = (id) =>
@@ -149,7 +155,10 @@ export const App = () => {
   return (
     <Router>
       <h1>Software anecdotes</h1>
+      
       <Menu />
+      
+      {notification ? <div>{notification}</div> : null}
 
       <Switch>
         <Route path="/create">
@@ -162,11 +171,12 @@ export const App = () => {
           <Anecdote anecdotes={anecdotes} />
         </Route>
         <Route path="/">
-          <AnecdoteList anecdotes={anecdotes} />
+          <AnecdoteList anecdotes={anecdotes} msg={notification} />
         </Route>
       </Switch>
       
       <Footer />
+
     </Router>
   )
 }
