@@ -19,10 +19,19 @@ const useField = (type) => {
   }
 }
 
-const useCountry = (name) => {
+const useCountry = (name) => {  
   const [country, setCountry] = useState(null)
 
-  useEffect(() => {})
+  useEffect(() => {
+    axios
+      .get(`https://restcountries.eu/rest/v2/name/${name}?fullText=true`)
+      .then(response => {
+        setCountry({found: true, data: response.data[0]})
+      })
+      .catch( () => {
+        setCountry({found: false, data: null})
+      })
+  }, [name])
 
   return country
 }
