@@ -4,6 +4,8 @@ import {
   Switch, Route, Link, useParams, useHistory
 } from "react-router-dom"
 
+import  { useField } from './hooks'
+
 // ** enter commit sha of your repository in here **
 export const commitSHA = '-commit-sha-in-here-';
 
@@ -68,22 +70,35 @@ const Footer = () => (
   </div>
 )
 
+const InputField = ({fieldObject}) => {
+  const {reset, ...attributes} = fieldObject
+  return (
+    <input {...attributes} />
+  )
+}
+
 const CreateNew = (props) => {
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
+  const content = useField('text')
+  const author = useField('text')
+  const info = useField('text')
 
   const history = useHistory()
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0
     })
     history.push('/')
+  }
+
+  const handleReset = () => {
+      content.reset()
+      author.reset()
+      info.reset()
   }
 
   return (
@@ -92,17 +107,18 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <InputField fieldObject={content} />
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <InputField fieldObject={author} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <InputField fieldObject={info} />
         </div>
-        <button>create</button>
+        <input type='submit' value='create' />
+        <input type='button' value='reset' onClick={handleReset} />
       </form>
     </div>
   )
@@ -155,7 +171,7 @@ export const App = () => {
   return (
     <Router>
       <h1>Software anecdotes</h1>
-      
+
       <Menu />
       
       {notification ? <div>{notification}</div> : null}
