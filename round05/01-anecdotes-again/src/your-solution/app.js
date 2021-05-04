@@ -23,7 +23,7 @@ const Menu = () => {
   )
 }
 
-const AnecdoteList = ({ anecdotes, notification }) => (
+const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
