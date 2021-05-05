@@ -1,5 +1,6 @@
 import { blogService } from './services'
 import { setNotification } from './reducer-notification'
+import { updateUsersBlogs } from './reducer-user'
 
 const blogReducer = (state = [], action) => {
   switch (action.type) {
@@ -37,7 +38,8 @@ export const createBlog = (blogObject) => {
         type: 'NEW_BLOG',
         data: newBlog
       })
-
+      
+      dispatch(updateUsersBlogs(newBlog))
       dispatch(setNotification({ text: `blog "${newBlog.title}" added` }))
 
     } catch (exception) {
@@ -76,7 +78,7 @@ export const deleteBlog = (id) => {
         type: 'DELETE_BLOG',
         data: id
       })
-      
+
     }catch (exception) {
       dispatch(setNotification({ text: 'Failed to remove blog', error: true }))
     }

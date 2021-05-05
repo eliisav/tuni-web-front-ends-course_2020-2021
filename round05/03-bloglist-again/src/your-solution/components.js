@@ -361,6 +361,10 @@ export const Users = ({users}) => {
     return null
   }
 
+  const usersToShow = users.sort((a, b) => (
+    b.blogs.length - a.blogs.length
+  ))
+
   return (
     <div>
       <h2>Users</h2>
@@ -371,7 +375,7 @@ export const Users = ({users}) => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user =>
+          {usersToShow.map(user =>
             <tr key={user.id}>
               <td>
                 <Link to={`/users/${user.id}`}>{user.name}</Link>

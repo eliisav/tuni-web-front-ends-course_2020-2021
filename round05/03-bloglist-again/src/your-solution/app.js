@@ -18,7 +18,6 @@ import {
   User
 } from './components'
 
-import { setNotification } from './reducer-notification'
 import { initializeBlogs, createBlog } from './reducer-blog'
 import { initializeUsers } from './reducer-user'
 import { initializeLogin } from './reducer-login'
