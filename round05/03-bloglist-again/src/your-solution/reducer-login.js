@@ -1,7 +1,27 @@
+import { loginService, blogService } from './services'
 
-const reducer = (state = null, action) => {
-  return state
+const loginReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_USER':
+      return action.data
+    case 'REMOVE_USER':
+      return null
+    
+    default: return state
+  }
 }
 
-export default reducer
+export const setUser = (user) => {
+  return {
+      type: 'SET_USER',
+      data: user
+  }
+}
 
+export const removeUser = () => {
+  return {
+    type: 'REMOVE_USER'
+  }
+}
+
+export default loginReducer
