@@ -9,10 +9,12 @@ import {
 
 import {
   Blog,
+  Blogs,
   Notification,
   Togglable,
   BlogForm,
-  Users
+  Users,
+  User
 } from './components'
 
 import {
@@ -39,12 +41,11 @@ export const commitSHA = '-commit-sha-in-here-';
 
 
 export const App = () => {
-
   const blogFormRef = React.createRef()
 
-  const blogs = useSelector(state => state.blogs)
   const loggedInUser = useSelector(state => state.loginUser)
   const allUsers = useSelector(state => state.users)
+  const blogs = useSelector(state => state.blogs)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -126,29 +127,8 @@ export const App = () => {
     //dispatch(setNotification({ text: error.response.data.error, error: true }))
   }
 
-  /**
-   * updateBlog
-   * @param {*} blog
-   */
-  const updateBlog = (blog) => dispatch(likeBlog(blog))
-  //dispatch(setNotification({ text: error.response.data.error, error: true }))
 
 
-  /**
-     * removeBlog
-     * @param {*} id
-     */
-  const removeBlog = (id) => {
-    const blogToDelete = blogs.find(blog => blog.id === id)
-
-    if (!window.confirm(`Remove blog "${blogToDelete.title}" by ${blogToDelete.author}`)) {
-      return
-    }
-    
-    dispatch(deleteBlog(id))
-    dispatch(setNotification({ text: `blog "${blogToDelete.title}" deleted` }))
-    // dispatch(setNotification({ text: error.response.data.error, error: true }))
-  }
 
 
   /*
@@ -191,9 +171,6 @@ export const App = () => {
   /*
    * Bloglist
    */
-
-  const blogsToShow = blogs.sort((a, b) => (b.likes - a.likes))
-
   return (
     <Router>
       <h2>blogs</h2>
@@ -206,24 +183,29 @@ export const App = () => {
       </p>
 
       <Switch>
+        <Route path="/users/:id">
+          <User users={allUsers} />
+        </Route>
+
         <Route path="/users">
           <Users users={allUsers} />
         </Route>
+
+        <Route path="/blogs/:id">
+          <Blog blogs={blogs} user={loggedInUser} />
+        </Route>
+        
         <Route path="/">
-          {blogsToShow.map(blog =>
-            <Blog
-              key={blog.id}
-              blog={blog}
-              updateBlog={updateBlog}
-              removeBlog={removeBlog}
-              user={loggedInUser}
-            />
-          )}
+          <Togglable buttonLabel='new blog' ref={blogFormRef}>
+            <BlogForm addBlog={addBlog} />
+          </Togglable>
+
+          <br />
+          
+          <Blogs blogs={blogs}/>
+          
         </Route>
       </Switch>
-
-      <br />
-
 
     </Router>
   )

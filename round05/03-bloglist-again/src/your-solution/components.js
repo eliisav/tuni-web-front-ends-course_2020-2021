@@ -1,18 +1,24 @@
-
 import React, { useState, useImperativeHandle } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import { clearNotification } from './reducer-notification'
+import { Link, useHistory, useParams } from "react-router-dom"
+
+import { setNotification, clearNotification } from './reducer-notification'
+import { likeBlog, deleteBlog } from './reducer-blog'
 
 
 // 
-// Blog
-// 
+// Blogs
+//
 
-export const Blog = ({ blog, updateBlog, removeBlog, user }) => {
+export const Blogs = ({blogs}) => {
+  if (!blogs) {
+    return null
+  }
 
+  const blogsToShow = blogs.sort((a, b) => (b.likes - a.likes))
 
-  const blogStyle = {
+  const listStyle = {
     paddingTop: 10,
     paddingLeft: 2,
     border: 'solid',
@@ -20,73 +26,86 @@ export const Blog = ({ blog, updateBlog, removeBlog, user }) => {
     marginBottom: 5
   }
 
-  const [visible, setVisible] = useState(false)
+  return (
+    <div>
+      {blogsToShow.map(blog =>
+        <div key={blog.id} style={listStyle}>
+          <Link to={`/blogs/${blog.id}`}>
+            {blog.title}
+          </Link>
+          -
+          <em>
+            {blog.author}
+          </em>
+        </div>
+      )}
+    </div>
+  )
+}
 
-  if (!blog.user) {
-    console.log('blog component haamu', blog)
+export const Blog = ({ blogs, user }) => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const id = useParams().id
+
+  console.log(id, blogs)
+
+  const blog = blogs.find(b => b.id === Number(id))
+
+  //console.log('blog component blogi', blog.user.username)
+  //console.log('blog component useri', user.username)
+
+  if (!blog) {
+    console.log(blog)
     return null
   }
 
-  if (!user) {
-    return null
-  }
-
-  console.log('blog component blogi', blog.user.username)
-  console.log('blog component useri', user.username)
-
-  const showWhenVisible = {
-    display: visible ? 'block' : 'none'
-  }
   const removeVisibility = { 
     display: user && blog.user.username === user.username ? '' : 'none' 
-  }
-
-
-  /**
-   * toggleVisibility
-   */
-  const toggleVisibility = () => {
-    setVisible(!visible)
   }
 
   /**
    * likeBlog
    */
-  const likeBlog = () => {
+  const like = () => {
     blog.likes += 1
-    updateBlog(blog)
+    dispatch(likeBlog(blog))
+    //dispatch(setNotification({ text: error.response.data.error, error: true }))
   }
 
+  /**
+   * removeBlog
+   */
+  const removeBlog = () => {
+    if (!window.confirm(`Remove blog "${blog.title}" by ${blog.author}`)) {
+      return
+    }
+    
+    dispatch(deleteBlog(blog.id))
+    dispatch(setNotification({ text: `blog "${blog.title}" deleted` }))
 
+    // dispatch(setNotification({ text: error.response.data.error, error: true }))
+
+    history.push('/')
+  }
 
   return (
+    <div>
+      <h2>{blog.title}</h2>
 
-    <div style={blogStyle} >
+      <a href={blog.url}>{blog.url}</a> <br />
+      {blog.likes} likes <button onClick={like}>like</button> <br />
+      {blog.user ? `added by ${blog.user.name}` : ''} <br />
 
-      <div>
-        {blog.title} - <em>{blog.author}</em>
-        <button onClick={toggleVisibility}>{visible ? 'hide' : 'view'}</button>
-
-      </div>
-
-      <div style={showWhenVisible}>
-        <a href={blog.url}>{blog.url}</a> <br />
-        {/* likes  0 <button>like</button> <br /> */}
-        {blog.likes} likes <button onClick={likeBlog}>like</button> <br />
-        {blog.user ? `added by ${blog.user.name}` : ''} <br />
-
-        <button
-          onClick={() => removeBlog(blog.id)}
-          style={removeVisibility}
-        >
-          remove
-        </button>
-
-      </div>
+      <button
+        onClick={() => removeBlog(blog.id)}
+        style={removeVisibility}
+      >
+        remove
+      </button>
 
     </div>
   )
-
 }
 
 
@@ -228,18 +247,36 @@ export const BlogForm = ({ addBlog }) => {
   )
 }
 
-const User = ({user}) => {
-  return(
-    <tr>
-      <td>{user.name}</td>
-      <td>{user.blogs.length}</td>
-    </tr>
+export const User = ({users}) => {
+  const id = useParams().id
+
+  if (!users) {
+    return null
+  }
+
+  const user = users.find(u => u.id === Number(id))
+
+  console.log('single user component all users', users)
+  console.log('single user component user', user)
+
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <h3>added blogs</h3>
+      <ul>
+        {user.blogs.map(blog =>
+          <li key={blog.id}>
+            <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
+          </li>
+        )}
+      </ul>
+    </div>
   )
 }
 
 export const Users = ({users}) => {
   console.log('users component users', users)
-  
+
   if (!users) {
     return null
   }
@@ -254,7 +291,16 @@ export const Users = ({users}) => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => <User key={user.id} user={user} />)}
+          {users.map(user =>
+            <tr key={user.id}>
+              <td>
+                <Link to={`/users/${user.id}`}>{user.name}</Link>
+              </td>
+              <td>
+                {user.blogs.length}
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
