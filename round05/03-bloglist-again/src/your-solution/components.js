@@ -5,6 +5,7 @@ import { Link, useHistory, useParams } from "react-router-dom"
 
 import { setNotification, clearNotification } from './reducer-notification'
 import { likeBlog, deleteBlog } from './reducer-blog'
+import { logUserIn, logUserOut } from './reducer-login'
 
 
 // 
@@ -109,6 +110,98 @@ export const Blog = ({ blogs, user }) => {
 }
 
 
+// 
+// Login
+//
+
+export const LoginForm = () => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+  //const history = useHistory()
+
+  /**
+   * handleLogin
+   * @param {*} event
+   */
+  const handleLogin = (event) => {
+    event.preventDefault()
+
+    dispatch(logUserIn({username, password}))
+
+    setUsername('')
+    setPassword('')
+
+    //history.push('/')
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleLogin}>
+        <div>username &nbsp;
+        <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>password &nbsp;
+        <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <div>
+          <button type="submit">login</button>
+        </div>
+      </form>
+
+    </div>
+  )
+}
+
+
+// 
+// Menu
+// 
+
+export const Menu = ({user}) => {
+  const dispatch = useDispatch()
+
+  const menuStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    background: 'lightgrey',
+    marginTop: 5,
+    marginBottom: 5
+  }
+  const padding = {
+    paddingRight: 8
+  }
+
+  /**
+   * handleLogout
+   */
+  const handleLogout = () => {
+    dispatch(logUserOut())
+  }
+
+  return (
+    <div style={menuStyle}>
+      <Link style={padding} to="/">blogs</Link>
+      <Link style={padding} to="/users">users</Link>
+      {user.name} logged in &nbsp;
+      <button type="button" onClick={handleLogout}>
+        logout
+      </button>
+    </div>
+  )
+}
+
 
 // 
 // Notification
@@ -182,6 +275,7 @@ Togglable.propTypes = {
   buttonLabel: PropTypes.string.isRequired
 }
 
+
 //
 // BlogForm
 // 
@@ -246,6 +340,11 @@ export const BlogForm = ({ addBlog }) => {
     </div>
   )
 }
+
+
+//
+// Users
+// 
 
 export const User = ({users}) => {
   const id = useParams().id

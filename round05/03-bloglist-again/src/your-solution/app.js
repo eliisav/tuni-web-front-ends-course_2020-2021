@@ -1,15 +1,16 @@
-
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
   BrowserRouter as Router,
-  Switch, Route, Link, useParams, useHistory
+  Switch, Route
 } from "react-router-dom"
 
 import {
   Blog,
   Blogs,
+  LoginForm,
+  Menu,
   Notification,
   Togglable,
   BlogForm,
@@ -17,22 +18,12 @@ import {
   User
 } from './components'
 
-import {
-  blogService,
-  loginService
-} from './services'
+import { blogService } from './services'
 
 import { setNotification } from './reducer-notification'
-
-import { 
-  initializeBlogs, 
-  createBlog, 
-  likeBlog, 
-  deleteBlog 
-} from './reducer-blog'
-
-import { setUser, removeUser } from './reducer-login'
+import { initializeBlogs, createBlog } from './reducer-blog'
 import { initializeUsers } from './reducer-user'
+import { initializeLogin } from './reducer-login'
 
 export { default as store } from './store'
 
@@ -47,9 +38,6 @@ export const App = () => {
   const allUsers = useSelector(state => state.users)
   const blogs = useSelector(state => state.blogs)
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -61,50 +49,8 @@ export const App = () => {
   }, [dispatch])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      blogService.setToken(user.token)
-      dispatch(setUser(user))
-    }
-  }, [])
-
-
-  /**
-   * handleLogin
-   * @param {*} event 
-   */
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username, password,
-      })
-      window.localStorage.setItem(
-        'loggedBlogAppUser', JSON.stringify(user)
-      )
-      dispatch(setUser(user))
-      setUsername('')
-      setPassword('')
-
-      dispatch(setNotification({ text: `${user.username} logged in` }))
-
-    } catch (exception) {
-
-      setUsername('')
-      setPassword('')
-      dispatch(setNotification({ error: true, text: 'wrong username or password' }))
-    }
-  }
-
-
-  /**
-   * handleLogout
-   */
-  const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogAppUser')
-    dispatch(removeUser())
-  }
+    dispatch(initializeLogin())
+  }, [dispatch])
 
 
   /**
@@ -127,14 +73,9 @@ export const App = () => {
     //dispatch(setNotification({ text: error.response.data.error, error: true }))
   }
 
-
-
-
-
   /*
    * Login form
    */
-
   if (loggedInUser === null) {
     return (
       <div>
@@ -142,28 +83,7 @@ export const App = () => {
 
         <Notification />
 
-        <form onSubmit={handleLogin}>
-          <div>username &nbsp;
-          <input
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>password &nbsp;
-          <input
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <div>
-            <button type="submit">login</button>
-          </div>
-        </form>
-
+        <LoginForm  />
       </div>
     )
   }
@@ -173,14 +93,11 @@ export const App = () => {
    */
   return (
     <Router>
-      <h2>blogs</h2>
+      <Menu user={loggedInUser}/>
+
+      <h2>blog app</h2>
 
       <Notification />
-
-      <p>
-        {loggedInUser.name} logged in &nbsp;
-      <button type="button" onClick={handleLogout}>logout</button>
-      </p>
 
       <Switch>
         <Route path="/users/:id">
