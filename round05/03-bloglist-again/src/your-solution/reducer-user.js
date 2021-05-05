@@ -1,6 +1,5 @@
 
-import { blogService, userService } from './services'
-import { setNotification } from './reducer-notification'
+import { userService } from './services'
 
 const userReducer = (state = null, action) => {
   switch (action.type) {
@@ -14,7 +13,7 @@ const userReducer = (state = null, action) => {
 export const initializeUsers = () => {
   return async dispatch => {
     const users = await userService.getAll()
-    console.log('users got from api', users)
+    
     dispatch({
       type: 'INIT_USERS',
       data: users

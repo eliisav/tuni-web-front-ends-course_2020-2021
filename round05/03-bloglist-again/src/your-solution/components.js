@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link, useHistory, useParams } from "react-router-dom"
 
-import { setNotification, clearNotification } from './reducer-notification'
+import { setNotification } from './reducer-notification'
 import { likeBlog, deleteBlog } from './reducer-blog'
 import { logUserIn, logUserOut } from './reducer-login'
 
@@ -49,15 +49,9 @@ export const Blog = ({ blogs, user }) => {
   const history = useHistory()
   const id = useParams().id
 
-  console.log(id, blogs)
-
   const blog = blogs.find(b => b.id === Number(id))
 
-  //console.log('blog component blogi', blog.user.username)
-  //console.log('blog component useri', user.username)
-
   if (!blog) {
-    console.log(blog)
     return null
   }
 
@@ -71,7 +65,6 @@ export const Blog = ({ blogs, user }) => {
   const like = () => {
     blog.likes += 1
     dispatch(likeBlog(blog))
-    //dispatch(setNotification({ text: error.response.data.error, error: true }))
   }
 
   /**
@@ -84,8 +77,6 @@ export const Blog = ({ blogs, user }) => {
     
     dispatch(deleteBlog(blog.id))
     dispatch(setNotification({ text: `blog "${blog.title}" deleted` }))
-
-    // dispatch(setNotification({ text: error.response.data.error, error: true }))
 
     history.push('/')
   }
@@ -209,15 +200,10 @@ export const Menu = ({user}) => {
 
 export const Notification = () => {
   const msg = useSelector(state => state.notification)
-  const dispatch = useDispatch()
 
   if (msg === null) {
     return null
   }
-
-  setTimeout(() => {
-    dispatch(clearNotification(null))
-  }, msg && msg.error ? 5000 : 3000)
 
   const style = {
     color: msg && msg.error ? 'red' : 'green',
@@ -355,9 +341,6 @@ export const User = ({users}) => {
 
   const user = users.find(u => u.id === Number(id))
 
-  console.log('single user component all users', users)
-  console.log('single user component user', user)
-
   return (
     <div>
       <h2>{user.name}</h2>
@@ -374,8 +357,6 @@ export const User = ({users}) => {
 }
 
 export const Users = ({users}) => {
-  console.log('users component users', users)
-
   if (!users) {
     return null
   }

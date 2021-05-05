@@ -1,8 +1,4 @@
-
 const notificationReducer = (state = null, action) => {
-  //console.log('notification state now: ', state)
-  //console.log('notification action', action)
-
   switch (action.type) {
     case 'SET_MSG':
       return action.data
@@ -14,15 +10,17 @@ const notificationReducer = (state = null, action) => {
 }
 
 export const setNotification = (msg) => {
-  return {
-    type: 'SET_MSG',
-    data: msg
-  }
-}
+  return async dispatch => {
+    dispatch({
+      type: 'SET_MSG',
+      data:  msg
+    })
 
-export const clearNotification = () => {
-  return {
-    type: 'CLEAR_MSG'
+    setTimeout(() => {
+      dispatch({
+        type: 'CLEAR_MSG'
+      })
+    }, msg && msg.error ? 5000 : 3000)
   }
 }
 

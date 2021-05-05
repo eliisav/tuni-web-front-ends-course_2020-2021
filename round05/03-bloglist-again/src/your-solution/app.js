@@ -18,8 +18,6 @@ import {
   User
 } from './components'
 
-import { blogService } from './services'
-
 import { setNotification } from './reducer-notification'
 import { initializeBlogs, createBlog } from './reducer-blog'
 import { initializeUsers } from './reducer-user'
@@ -69,8 +67,6 @@ export const App = () => {
     }
 
     dispatch(createBlog(newBlog))
-    dispatch(setNotification({ text: `blog "${newTitle}" added` }))
-    //dispatch(setNotification({ text: error.response.data.error, error: true }))
   }
 
   /*

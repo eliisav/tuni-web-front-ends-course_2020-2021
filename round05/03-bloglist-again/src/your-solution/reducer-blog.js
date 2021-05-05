@@ -30,11 +30,19 @@ export const initializeBlogs = () => {
 
 export const createBlog = (blogObject) => {
   return async dispatch => {
-    const newBlog = await blogService.create(blogObject)
-    dispatch({
-      type: 'NEW_BLOG',
-      data: newBlog
-    })
+    try {
+      const newBlog = await blogService.create(blogObject)
+
+      dispatch({
+        type: 'NEW_BLOG',
+        data: newBlog
+      })
+
+      dispatch(setNotification({ text: `blog "${newBlog.title}" added` }))
+
+    } catch (exception) {
+      dispatch(setNotification({ text: 'Failed to create a new blog', error: true }))
+    }
   }
 }
 
@@ -42,25 +50,36 @@ export const likeBlog = (blogObject) => {
   return async dispatch => {
     try {
       const likedBlog = await blogService.update(blogObject.id, blogObject)
+
       dispatch({
         type: 'LIKE_BLOG',
         data: likedBlog
       })
-    } catch (exception) {
-      console.log(exception)
-      dispatch(setNotification({text: 'Failed to update blog likes', error: true}))
-    }
 
+    } catch (exception) {
+    /*dispatch({
+        type: 'DELETE_BLOG',
+        data: blogObject.id
+      }) */
+      
+      dispatch(setNotification({text: 'Failed to update blog', error: true}))
+    }
   }
 }
 
 export const deleteBlog = (id) => {
   return async dispatch => {
-    await blogService.remove(id)
-    dispatch({
-      type: 'DELETE_BLOG',
-      data: id
-    })
+    try {
+      await blogService.remove(id)
+
+      dispatch({
+        type: 'DELETE_BLOG',
+        data: id
+      })
+      
+    }catch (exception) {
+      dispatch(setNotification({ text: 'Failed to remove blog', error: true }))
+    }
   }
 }
 
