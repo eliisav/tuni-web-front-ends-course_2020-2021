@@ -16,14 +16,7 @@ switch (LIBRARY_APP) {
   }
 
   case 'your-solution': default: {
-    // appDir = 'fullstack-steps/step1'    
-    // appDir = 'fullstack-steps/step2'    
-    // appDir = 'fullstack-steps/step3'    
-    // appDir = 'fullstack-steps/step4'    
-    // appDir = 'fullstack-steps/step5'    
-    // appDir = 'fullstack-steps/step6'    
-    appDir = 'fullstack-steps/step7'    
-    // appDir = 'your-solution'
+    appDir = 'your-solution'
   }
 }
 
