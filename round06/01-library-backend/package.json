@@ -1,0 +1,26 @@
+{
+  "name": "01-library-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env LIBRARY_APP=your-solution node src/index.js",
+    "dev": "nodemon src/index.js",
+    "my": "cross-env LIBRARY_APP=your-solution node src/index.js",
+    "review-1": "cross-env LIBRARY_APP=solution-to-review-1 node src/index.js",
+    "review-2": "cross-env LIBRARY_APP=solution-to-review-2 node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.24.0",
+    "cross-env": "^7.0.3",
+    "graphql": "^15.5.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
