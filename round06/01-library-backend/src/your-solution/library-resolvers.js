@@ -2,7 +2,7 @@
 // == DO NOT CHANGE THESE THREE LINES
 const { basename } = require('path')
 const dataPath = basename(__dirname) === 'your-solution' ? '../..' : '../../..'
-const { authors, books } = require(`${dataPath}/library-data`)
+let { authors, books } = require(`${dataPath}/library-data`)
 // ==
 
 // == ENTER COMMIT SHA OF YOUR REPO IN HERE 
