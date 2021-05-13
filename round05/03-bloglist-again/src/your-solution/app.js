@@ -25,7 +25,7 @@ import { initializeLogin } from './reducer-login'
 export { default as store } from './store'
 
 // *** ENTER COMMIT SHA OF YOUR REPO IN HERE ***
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = 'a499833';
 
 
 export const App = () => {

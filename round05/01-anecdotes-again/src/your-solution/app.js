@@ -7,7 +7,7 @@ import {
 import  { useField } from './hooks'
 
 // ** enter commit sha of your repository in here **
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = '64be084';
 
 
 const Menu = () => {
