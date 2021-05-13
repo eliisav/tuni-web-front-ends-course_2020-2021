@@ -11,6 +11,8 @@ const commitSHA = 'commit-sha-in-here';
 
 const resolvers = {
   Query: {
+    bookCount: () => books.length,
+    authorCount: () => authors.length,
   }
 }
 
