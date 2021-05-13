@@ -1,0 +1,8 @@
+POST http://localhost:4000
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5lZCIsImlkIjoiMTJkODdlZjAtYjIyZS0xMWViLTkyNTMtMTliNzMzYmM1Y2JkIiwiaWF0IjoxNjIwNzI3Mjc5fQ.za2GT8Jc87fNpbrCUonh2V89RqYRb-IeecfGQoQsbE0
+
+{
+  "query":"mutation { addBook( title: \"NoSQL Distilled\", author: \"Martin Fowler\", published: 2012,  genres: [\"database\", \"nosql\"]) { title, author } }"
+}
+

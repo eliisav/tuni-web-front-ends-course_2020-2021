@@ -1,0 +1,7 @@
+POST http://localhost:4000
+Content-Type: application/json
+
+{
+  "query":"mutation { addBook( title: \"Pimeyden tango\", author: \"Reijo Mäki\", published: 1997, genres: [\"crime\"] ) { title, author } }"
+}
+
