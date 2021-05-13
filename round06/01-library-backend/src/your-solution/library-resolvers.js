@@ -17,7 +17,16 @@ const resolvers = {
   Query: {
     bookCount: () => books.length,
     authorCount: () => authors.length,
-    allBooks: () => books,
+    allBooks: (root, args) => {
+      const foundBooks = (
+        args.author ? books.filter(b => b.author === args.author) : books
+      )
+      return (
+        args.genre
+        ? foundBooks.filter(b =>b.genres.includes(args.genre) === true)
+        : foundBooks
+      )
+    },
     allAuthors: () => authors,
   }
 }
