@@ -10,9 +10,15 @@ const commitSHA = 'commit-sha-in-here';
 
 
 const resolvers = {
+  Author: {
+    bookCount: (root) => books.filter(b => b.author === root.name).length
+  },
+
   Query: {
     bookCount: () => books.length,
     authorCount: () => authors.length,
+    allBooks: () => books,
+    allAuthors: () => authors,
   }
 }
 
