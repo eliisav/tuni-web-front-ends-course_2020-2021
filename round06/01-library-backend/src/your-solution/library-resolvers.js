@@ -5,6 +5,8 @@ const dataPath = basename(__dirname) === 'your-solution' ? '../..' : '../../..'
 let { authors, books } = require(`${dataPath}/library-data`)
 // ==
 
+const { v1: uuid } = require('uuid')
+
 // == ENTER COMMIT SHA OF YOUR REPO IN HERE 
 const commitSHA = 'commit-sha-in-here';
 
@@ -28,7 +30,29 @@ const resolvers = {
       )
     },
     allAuthors: () => authors,
-  }
+  },
+
+  Mutation: {
+    addBook: (root, args) => {
+      if (authors.find(a => a.name === args.author) === undefined) {
+        authors = authors.concat({ name: args.author, id: uuid() })
+      }
+      const book = { ...args, id: uuid() }
+      books = books.concat(book)
+      return book
+    },
+
+    editAuthor: (root, args) => {
+      const author = authors.find(a => a.name === args.name)
+
+      if (author === undefined) {
+        return null
+      }
+      const updated = {...author, born: args.setBornTo}
+      authors = authors.map(a => a.id !== updated.id ? a : updated)
+      return updated
+    }
+  },
 }
 
 
