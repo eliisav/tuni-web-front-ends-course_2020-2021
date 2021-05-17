@@ -13,7 +13,7 @@ const {
   getCurrentUser } = require('./utils')
 // ==
 
-
+const pubsub = new PubSub()
 
 // == ENTER COMMIT SHA OF YOUR REPO IN HERE 
 const commitSHA = '';
@@ -40,7 +40,7 @@ const resolvers = {
     allAuthors: () => authors,
     allUsers: () => users,
     me: (root, args, context) => {
-      console.log(context.token)
+      //console.log(context.token)
       return getCurrentUser(context.token, users)
     }
   },
@@ -54,8 +54,11 @@ const resolvers = {
       if (authors.find(a => a.name === args.author) === undefined) {
         authors = authors.concat({ name: args.author, id: uuid() })
       }
+
       const book = { ...args, id: uuid() }
       books = books.concat(book)
+      pubsub.publish('BOOK_ADDED', { bookAdded: book })
+
       return book
     },
 
@@ -69,8 +72,10 @@ const resolvers = {
       if (author === undefined) {
         return null
       }
+
       const updated = {...author, born: args.setBornTo}
       authors = authors.map(a => a.id !== updated.id ? a : updated)
+      
       return updated
     },
 
@@ -103,6 +108,12 @@ const resolvers = {
       }
 
       return { value: getToken(userForToken) }
+    },
+  },
+
+  Subscription: {
+    bookAdded: {
+      subscribe: () => pubsub.asyncIterator(['BOOK_ADDED'])
     },
   },
 }
