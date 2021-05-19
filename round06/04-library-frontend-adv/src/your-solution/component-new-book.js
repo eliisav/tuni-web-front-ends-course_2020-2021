@@ -17,17 +17,28 @@ const NewBook = ({ show }) => {
     return null
   }
 
+  const validate = (fields) => {
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i].length === 0) {
+        return false
+      }
+    }
+    return true
+  }
+
   const submit = async (event) => {
     event.preventDefault()
     
-    if ( title !== '' && author !== '' && published !== '') {
-      console.log('add book...')
-      createBook({variables: {
-          title, author, genres,
-          year: parseInt(published)
-        }
-      })
+    if (!validate([title, author, published, genres])) {
+      return
     }
+
+    console.log('add book...')
+    createBook({variables: {
+        title, author, genres,
+        year: parseInt(published)
+      }
+    })
 
     setTitle('')
     setPublished('')
