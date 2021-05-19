@@ -33,7 +33,7 @@ const NewBook = ({ show }) => {
       return
     }
 
-    console.log('add book...')
+    //console.log('add book...')
     createBook({variables: {
         title, author, genres,
         year: parseInt(published)

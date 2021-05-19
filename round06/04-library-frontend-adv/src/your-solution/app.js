@@ -1,11 +1,12 @@
 
 import React, { useState } from 'react'
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient, useSubscription } from '@apollo/client'
 import Authors from './component-authors'
 import Books from './component-books'
 import NewBook from './component-new-book'
 import LoginForm from './component-login-form'
 import Recommend from './component-recommend'
+import { ALL_BOOKS, BOOK_ADDED } from './gql'
 
 // ** enter commit sha of your repository in here **
 export const commitSHA = '';
@@ -22,6 +23,29 @@ export const App = () => {
     client.resetStore()
     setPage('authors')
   }
+
+  const updateCacheWith = (addedBook) => {
+    const includedIn = (set, object) => 
+      set.map(p => p.id).includes(object.id)  
+
+    const bookData = client.readQuery({ query: ALL_BOOKS })
+    if (!includedIn(bookData.allBooks, addedBook)) {
+      client.writeQuery({
+        query: ALL_BOOKS,
+        data: { allBooks : bookData.allBooks.concat(addedBook) }
+      })
+    }
+
+    // Authors should be updated too...
+  }
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      const newBook = subscriptionData.data.bookAdded
+      window.alert(`New book ${newBook.title} added!`)
+      updateCacheWith(newBook)
+    }
+  })
 
   return (
     <div>

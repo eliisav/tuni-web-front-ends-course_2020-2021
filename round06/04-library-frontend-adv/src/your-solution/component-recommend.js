@@ -13,7 +13,7 @@ const Recommend = ({ show }) => {
 
   useEffect(() => {
     if ( resultUser.data && resultUser.data.me) {
-      console.log('recommend', resultUser.data)
+      console.log('current user', resultUser.data.me)
       setFilter(resultUser.data.me.favoriteGenre)
     } else {
       setFilter(null)
