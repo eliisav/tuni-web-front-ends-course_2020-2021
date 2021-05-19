@@ -5,6 +5,7 @@ import Authors from './component-authors'
 import Books from './component-books'
 import NewBook from './component-new-book'
 import LoginForm from './component-login-form'
+import Recommend from './component-recommend'
 
 // ** enter commit sha of your repository in here **
 export const commitSHA = '';
@@ -19,10 +20,7 @@ export const App = () => {
     setToken(null)
     localStorage.clear()
     client.resetStore()
-
-    if (page === 'add') {
-      setPage('authors')
-    }
+    setPage('authors')
   }
 
   return (
@@ -32,6 +30,10 @@ export const App = () => {
         <button onClick={() => setPage('books')}>books</button>
         {token
           ? <button onClick={() => setPage('add')}>add book</button>
+          : null
+        }
+        {token
+          ? <button onClick={() => setPage('recommend')}>recommend</button>
           : null
         }
         {token
@@ -51,6 +53,10 @@ export const App = () => {
 
       <NewBook
         show={page === 'add'}
+      />
+
+      <Recommend
+        show={page === 'recommend'}
       />
 
       <LoginForm
