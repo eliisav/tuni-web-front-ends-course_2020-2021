@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { ALL_AUTHORS, UPDATE_AUTHOR } from './gql'
 
@@ -9,6 +9,12 @@ const Authors = (props) => {
   const [year, setYear] = useState('')
 
   const [ updateAuthor ] = useMutation(UPDATE_AUTHOR)
+
+  useEffect(() => {
+    if ( result.data && result.data.allAuthors.length > 0) {
+      setName(result.data.allAuthors[0].name)
+    }
+  }, [result.data])
 
   if (!props.show) {
     return null
@@ -23,8 +29,10 @@ const Authors = (props) => {
   const submit = async (event) => {
     event.preventDefault()
 
-    const born = parseInt(year)
-    updateAuthor({  variables: { name, born } })
+    if (year !== '') {
+      const born = parseInt(year)
+      updateAuthor({  variables: { name, born } })
+    }
 
     setName('')
     setYear('')
