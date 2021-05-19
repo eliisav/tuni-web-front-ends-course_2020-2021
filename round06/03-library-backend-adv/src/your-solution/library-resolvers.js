@@ -75,7 +75,7 @@ const resolvers = {
 
       const updated = {...author, born: args.setBornTo}
       authors = authors.map(a => a.id !== updated.id ? a : updated)
-      
+
       return updated
     },
 
@@ -87,7 +87,8 @@ const resolvers = {
 
       const user = {
         username: args.username,
-        favoriteGenre: args.favoriteGenre
+        favoriteGenre: args.favoriteGenre,
+        id: uuid()
       }
 
       users = users.concat(user)
