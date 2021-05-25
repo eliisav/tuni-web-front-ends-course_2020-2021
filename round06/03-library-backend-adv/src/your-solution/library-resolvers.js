@@ -16,7 +16,7 @@ const {
 const pubsub = new PubSub()
 
 // == ENTER COMMIT SHA OF YOUR REPO IN HERE 
-const commitSHA = '';
+const commitSHA = '183f3d4';
 
 
 const resolvers = {

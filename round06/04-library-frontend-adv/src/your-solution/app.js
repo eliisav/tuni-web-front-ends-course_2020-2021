@@ -9,7 +9,7 @@ import Recommend from './component-recommend'
 import { ALL_BOOKS, BOOK_ADDED } from './gql'
 
 // ** enter commit sha of your repository in here **
-export const commitSHA = '';
+export const commitSHA = '183f3d4';
 
 
 export const App = () => {
