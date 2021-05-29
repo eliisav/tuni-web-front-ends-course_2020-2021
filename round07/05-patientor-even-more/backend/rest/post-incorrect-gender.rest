@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+    "name": "Ned Flanders",
+    "dateOfBirth": "1907-07-07",
+    "ssn": "999999-XXXX",
+    "gender": "unknown",
+    "occupation": "unemployed"
+}
