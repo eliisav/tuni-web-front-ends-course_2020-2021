@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .ts ./src/your-solution",
     "lint-review-1": "eslint --ext .ts ./src/solution-to-review-1",
-    "lint-review-2": "eslint --ext .ts ./src/solution-to-review-2"
+    "lint-review-2": "eslint --ext .ts ./src/solution-to-review-2",
+    "calculateBmi": "npm start hc"
   },
   "keywords": [],
   "author": "",
