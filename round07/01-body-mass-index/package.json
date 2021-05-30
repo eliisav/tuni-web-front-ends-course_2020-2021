@@ -11,7 +11,8 @@
     "lint": "eslint --ext .ts ./src/your-solution",
     "lint-review-1": "eslint --ext .ts ./src/solution-to-review-1",
     "lint-review-2": "eslint --ext .ts ./src/solution-to-review-2",
-    "calculateBmi": "npm start cli"
+    "calculateBmi": "npm start cli",
+    "dev": "ts-node-dev src/your-solution/bmi-web.ts"
   },
   "keywords": [],
   "author": "",
