@@ -1,8 +1,35 @@
 
-
 import { calculateExercises } from './exercise-calculator';
 
+interface TrainingHours {
+  dailyHours: Array<number>;
+  target: number;
+}
 
+const parseArguments = (args: Array<string>): TrainingHours => {
+  if (args.length < 4) throw new Error('Not enough arguments');
+
+  const argsAsNumbers = args.slice(2).map( n => {
+    if (!isNaN(Number(n))) {
+      return Number(n);
+    } else {
+      throw new Error('Invalid arguments!');
+    }
+  });
+
+  return {
+    dailyHours: argsAsNumbers.slice(1),
+    target: argsAsNumbers[0]
+  };
+};
+
+try {
+  const { dailyHours, target } = parseArguments(process.argv);
+  console.log(calculateExercises(dailyHours, target));
+} catch (e) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  console.log('Error, something bad happened, message: ', e.message);
+}
 
 /*
 
