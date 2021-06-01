@@ -12,7 +12,8 @@
     "lint-review-1": "eslint --ext .ts ./src/solution-to-review-1",
     "lint-review-2": "eslint --ext .ts ./src/solution-to-review-2",
     "lint-stages": "eslint --ext .ts ./src/_stages",
-    "calculateExercises": "npm start cli"
+    "calculateExercises": "npm start cli",
+    "dev": "ts-node-dev src/your-solution/calc-web.ts"
   },
   "keywords": [],
   "author": "",

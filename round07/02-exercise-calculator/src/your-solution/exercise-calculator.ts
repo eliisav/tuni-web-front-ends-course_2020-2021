@@ -10,8 +10,9 @@ interface Result {
 }
 
 const calculateExercises = (hours: Array<number>, target: number): Result => {
-  if (hours.length === 0) throw new Error('Not enough training days');
-  const average = hours.reduce((acc, cur) => acc + cur) / hours.length;
+  const average = hours.length !== 0
+    ? hours.reduce((acc, cur) => acc + cur) / hours.length
+    : 0;
   
   let rating = 3;
   let description = 'great, goal achieved';
