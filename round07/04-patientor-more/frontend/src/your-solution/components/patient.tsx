@@ -13,7 +13,7 @@ const PatientDetails = () => {
 
   const setPatient = async () => {
     try {
-      const {data: patient} = await axios.get<Omit<Patient, 'entries'>>(
+      const {data: patient} = await axios.get<Patient>(
         `${apiBaseUrl}/patients/${id}`
       );
       console.log(patient);
@@ -47,6 +47,16 @@ const PatientDetails = () => {
       <h2>{patientToShow.name} <Icon name={iconType()}/></h2>
       <div>ssn: {patientToShow.ssn}</div>
       <div>occupation: {patientToShow.occupation}</div>
+
+      <h3>entries</h3>
+      {patientToShow.entries.map(entry => 
+        <div key={entry.id}>
+          <p >{entry.date} {entry.description}</p>
+          <ul>
+            {entry.diagnosisCodes?.map(code => <li key={code}>{code}</li>)}
+          </ul>
+        </div>
+      )}
     </div>
     
   );
