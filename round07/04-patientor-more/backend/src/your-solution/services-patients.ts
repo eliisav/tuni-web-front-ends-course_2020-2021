@@ -1,16 +1,23 @@
 
 import { v4 as uuidv4 } from 'uuid';
-import patientData from '../../data/patients.json';
-import { PatientEntry, NonSensitivePatientEntry, NewPatientEntry } from './types';
+import patientData from './data-patients';
+
+import {
+  PatientEntry,
+  NonSensitivePatientEntry,
+  NewPatientEntry,
+  Patient
+} from './types';
+
 import toNewPatientEntry from './utils';
 
-const patients: Array<PatientEntry> = patientData.map(obj => {
-  const object = toNewPatientEntry(obj) as PatientEntry
+const patients: Array<Patient> = patientData.map(obj => {
+  const object = toNewPatientEntry(obj) as Patient
   object.id = obj.id
   return object
 });
 
-const getEntries = (): Array<PatientEntry> => {
+const getEntries = (): Array<Patient> => {
   return patients;
 };
 
@@ -26,8 +33,14 @@ const addEntry = (entry: NewPatientEntry): PatientEntry => {
   return newPatientEntry;
 };
 
+const getPatient = (id: string): Patient | undefined => {
+  const patient = patients.find(p => p.id === id) as Patient
+  return patient
+};
+
 export default {
   getEntries,
   getNonSensitiveEntries,
-  addEntry
+  addEntry,
+  getPatient
 };
