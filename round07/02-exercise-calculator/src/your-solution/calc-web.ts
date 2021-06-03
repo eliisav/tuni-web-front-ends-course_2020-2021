@@ -12,8 +12,8 @@ interface Arguments {
 
 const validateArray = (numArray: Array<number>): boolean => {
   if (Array.isArray(numArray)) {
-    return numArray.every((val: number) =>
-      !isNaN(Number(val))
+    return numArray.every((value: number) =>
+      !isNaN(Number(value))
     );
   }
   return false;
