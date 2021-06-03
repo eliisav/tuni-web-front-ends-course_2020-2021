@@ -14,6 +14,12 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
     ? hours.reduce((acc, cur) => acc + cur) / hours.length
     : 0;
   
+  /* Rating:
+      3, average === target, goal achieved
+      2, average is 80 % or more of the target
+      1, average is less than 80 % of the target
+  */
+
   let rating = 3;
   let description = 'great, goal achieved';
 
