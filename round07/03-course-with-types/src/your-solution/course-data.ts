@@ -23,7 +23,7 @@ interface CourseSubmissionPart extends CoursePartDescriptionBase {
 }
 
 interface CourseSpecialPart extends CoursePartDescriptionBase {
-  type: "special"
+  type: "special";
   requirements: Array<string>;
 }
 

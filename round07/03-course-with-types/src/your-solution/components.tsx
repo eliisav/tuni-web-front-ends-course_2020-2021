@@ -25,7 +25,7 @@ const Part = ({ part }: { part: CoursePart }) => {
           <br/>
           <i>{part.description}</i>
         </p>
-      )
+      );
     case "groupProject":
       return (
         <p>
@@ -33,7 +33,7 @@ const Part = ({ part }: { part: CoursePart }) => {
           <br/>
           project exercises {part.groupProjectCount}
         </p>
-      )
+      );
     case "submission":
       return (
         <p>
@@ -43,7 +43,7 @@ const Part = ({ part }: { part: CoursePart }) => {
           <br/>
           submit to {part.exerciseSubmissionLink}
         </p>
-      )
+      );
       case "special":
         return (
           <p>
@@ -53,11 +53,11 @@ const Part = ({ part }: { part: CoursePart }) => {
             <br/>
             required skils: {part.requirements.join(', ')}
           </p>
-        )
+        );
     default:
       return assertNever(part);
   }
-}
+};
 
 export const Content = ({ courseParts }: { courseParts: Array<CoursePart> }) => {
 
@@ -65,7 +65,7 @@ export const Content = ({ courseParts }: { courseParts: Array<CoursePart> }) => 
     <div>
       {courseParts.map(part => <Part key={part.name} part={part} />)}
     </div>
-  )
+  );
 
 };
 
