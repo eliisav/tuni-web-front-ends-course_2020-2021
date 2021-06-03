@@ -8,17 +8,21 @@ app.get('/bmi', (req, res) => {
   const height = Number(req.query.height);
   const weight = Number(req.query.weight);
 
-  if (!isNaN(height) && !isNaN(weight)) {
+  if (isNaN(height) || isNaN(weight)) {
+    res.status(400).send({ error: 'malformatted parameters' });
+
+  } else {
     try {
       const bmi = calculateBmi(height, weight);
       res.send({weight, height, bmi});
+
     } catch (e) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      res.status(500).send({ error: String(e.message) });
+      const msg = e instanceof Error ? e.message : 'unknown error';
+      res.status(500).send({ error: msg });
     }
-  } else {
-    res.status(400).send({ error: "malformatted parameters" });
+
   }
+
 });
 
 const PORT = 3003;

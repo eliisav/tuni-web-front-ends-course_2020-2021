@@ -26,9 +26,14 @@ const parseArguments = (args: Array<string>): TrainingHours => {
 try {
   const { dailyHours, target } = parseArguments(process.argv);
   console.log(calculateExercises(dailyHours, target));
+
 } catch (e) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  console.log('Error, something bad happened, message: ', e.message);
+  if (e instanceof Error) {
+    console.log('Error, something bad happened, message: ', e.message);
+  } else {
+    console.log('Error, something bad happened');
+  }
+
 }
 
 /*
