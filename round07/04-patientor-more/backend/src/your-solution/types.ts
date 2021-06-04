@@ -20,7 +20,13 @@ export interface PatientEntry {
   occupation: string;
 }
 
-export interface Patient extends PatientEntry{
+export interface Patient {
+  id: string;
+  name: string;
+  dateOfBirth: string;
+  ssn: string;
+  gender: Gender;
+  occupation: string;
   entries: Entry[];
 }
 
@@ -70,7 +76,7 @@ export type Entry =
   | OccupationalHealthCareEntry
   | HealthCheckEntry;
 
-export type PublicPatient = Omit<Patient, 'ssn' | 'entries' >
+export type PublicPatient = Omit<Patient, 'ssn' | 'entries' >;
 
 export type NonSensitivePatientEntry = Omit<PatientEntry, 'ssn'>;
 

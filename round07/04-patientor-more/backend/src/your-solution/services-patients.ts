@@ -3,28 +3,27 @@ import { v4 as uuidv4 } from 'uuid';
 import patientData from './data-patients';
 
 import {
-  PatientEntry,
   NonSensitivePatientEntry,
   NewPatientEntry,
-  Patient
+  Patient as PatientEntry
 } from './types';
 
 import toNewPatientEntry from './utils';
 
-const patients: Array<Patient> = patientData.map(obj => {
-  const object = toNewPatientEntry(obj) as Patient
-  object.id = obj.id
-  return object
+const patients: Array<PatientEntry> = patientData.map(obj => {
+  const object = toNewPatientEntry(obj) as PatientEntry;
+  object.id = obj.id;
+  return object;
 });
 
-const getEntries = (): Array<Patient> => {
+const getEntries = (): Array<PatientEntry> => {
   return patients;
 };
 
 const getNonSensitiveEntries = (): NonSensitivePatientEntry[] => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => (
     { id, name, dateOfBirth, gender, occupation }
-  ))
+  ));
 };
 
 const addEntry = (entry: NewPatientEntry): PatientEntry => {
@@ -33,9 +32,9 @@ const addEntry = (entry: NewPatientEntry): PatientEntry => {
   return newPatientEntry;
 };
 
-const getPatient = (id: string): Patient | undefined => {
-  const patient = patients.find(p => p.id === id) as Patient
-  return patient
+const getPatient = (id: string): PatientEntry | undefined => {
+  const patient = patients.find(p => p.id === id);
+  return patient;
 };
 
 export default {
