@@ -8,7 +8,7 @@ import { useStateValue, showPatient } from "../state";
 import { Patient } from "../types";
 
 const PatientDetails = () => {
-  const [{patientToShow}, dispatch] = useStateValue();
+  const [{patientToShow, diagnoses}, dispatch] = useStateValue();
   const { id } = useParams<{ id: string }>();
 
   const setPatient = async () => {
@@ -53,7 +53,9 @@ const PatientDetails = () => {
         <div key={entry.id}>
           <p >{entry.date} {entry.description}</p>
           <ul>
-            {entry.diagnosisCodes?.map(code => <li key={code}>{code}</li>)}
+            {entry.diagnosisCodes?.map(code => 
+              <li key={code}>{code} {diagnoses[code]?.name}</li>
+            )}
           </ul>
         </div>
       )}
