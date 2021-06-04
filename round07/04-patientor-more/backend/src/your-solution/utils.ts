@@ -48,10 +48,10 @@ const toNewPatientEntry = (object: any): NewPatientEntry => {
     "ssn": parseStringProperty(object, 'ssn'),
     "gender": parseGender(object['gender']),
     "occupation": parseStringProperty(object, 'occupation'),
-    "entries": object.entries
-  }
+    "entries": object.entries ? object.entries : []
+  };
 
   return newEntry;
-}
+};
 
 export default toNewPatientEntry;
