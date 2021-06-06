@@ -3,7 +3,13 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { NewPatientEntry, Gender } from './types';
+import {
+  NewPatientEntry,
+  Gender,
+  NewEntry,
+  //SickLeave,
+  //Discharge
+} from './types';
 
 const isString = (text: any): text is string => {
   return typeof text === 'string' || text instanceof String;
@@ -14,7 +20,7 @@ const parseStringProperty = (object: any, property: string): string => {
     throw new Error(`Incorrect or missing ${property}`);
   }
   return object[property];
-}
+};
 
 
 const isGender = (param: any): param is Gender => {
@@ -50,6 +56,40 @@ const toNewPatientEntry = (object: any): NewPatientEntry => {
     "occupation": parseStringProperty(object, 'occupation'),
     "entries": object.entries ? object.entries : []
   };
+
+  return newEntry;
+};
+
+export const toNewEntry = (object: any): NewEntry | undefined => {
+  const baseEntry = {
+    "date": parseDate(object['date']),
+    "specialist": parseStringProperty(object, 'specialist'),
+    "description": parseStringProperty(object, 'description'),
+    "diagnosisCodes": object.diagnosisCodes,
+    "type": object.type,
+  };
+
+  let newEntry;
+
+  if (object.type === "HealthCheck") {
+    newEntry = {
+      ...baseEntry,
+      "healthCheckRating": object.healthCheckRating
+    };
+
+  } else if (object.type === "OccupationalHealthcare") {
+    newEntry = {
+      ...baseEntry,
+      "employerName": parseStringProperty(object, 'employerName'),
+      "sickLeave": object.sickLeave
+    };
+
+  } else if (object.type === "Hospital") {
+    newEntry = {
+      ...baseEntry,
+      "discharge": object.discharge
+    };
+  }
 
   return newEntry;
 };
