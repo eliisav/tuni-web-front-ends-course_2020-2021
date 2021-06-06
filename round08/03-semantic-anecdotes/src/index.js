@@ -55,7 +55,7 @@ const setAssignmentInfoBanner = ({ solution, commitSHA }) => {
       module = await import(`./${REACT_APP_SOLUTION}/app`);
       break;
     default:
-      module = await import('./_stage0/app');
+      // module = await import('./_stage0/app');
       // module = await import('./_stage1/app');
       // module = await import('./_stage2/app');
       // module = await import('./_stage3/app');
