@@ -1,14 +1,15 @@
 import React from "react";
 import axios from "axios";
-import { Icon } from 'semantic-ui-react';
+import { Icon, List } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 
 import { apiBaseUrl } from "../constants";
 import { useStateValue, showPatient } from "../state";
 import { Patient } from "../types";
+import EntryDetails from "./Entry";
 
 const PatientDetails = () => {
-  const [{patientToShow, diagnoses}, dispatch] = useStateValue();
+  const [{patientToShow}, dispatch] = useStateValue();
   const { id } = useParams<{ id: string }>();
 
   const setPatient = async () => {
@@ -35,7 +36,7 @@ const PatientDetails = () => {
   const iconType = () => {
     if (patientToShow.gender === 'male') {
       return 'mars';
-    } else if(patientToShow.gender === "female") {
+    } else if (patientToShow.gender === "female") {
       return 'venus';
     } else {
       return 'transgender alternate';
@@ -44,21 +45,17 @@ const PatientDetails = () => {
 
   return (
     <div>
-      <h2>{patientToShow.name} <Icon name={iconType()}/></h2>
+      <h2>{patientToShow.name} <Icon name={iconType()} /></h2>
       <div>ssn: {patientToShow.ssn}</div>
       <div>occupation: {patientToShow.occupation}</div>
 
       <h3>entries</h3>
-      {patientToShow.entries.map(entry => 
-        <div key={entry.id}>
-          <p >{entry.date} {entry.description}</p>
-          <ul>
-            {entry.diagnosisCodes?.map(code => 
-              <li key={code}>{code} {diagnoses[code]?.name}</li>
-            )}
-          </ul>
-        </div>
-      )}
+      {patientToShow.entries.length === 0 ? 'No entries' : null}
+      <List celled relaxed>
+        {patientToShow.entries.map(entry => (
+          <EntryDetails key={entry.id} entry={entry}/>
+        ))}
+      </List>
     </div>
     
   );
