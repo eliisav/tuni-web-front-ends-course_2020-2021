@@ -6,22 +6,11 @@ import { TextField, DiagnosisSelection, NumberField } from "../AddPatientModal/F
 import { NewEntry } from "../types";
 import { useStateValue } from "../state";
 
-/*
- * use type Patient, but omit id and entries,
- * because those are irrelevant for new patient object.
- */
-//export type PatientFormValues = Omit<Patient, "id" | "entries">;
 
 interface Props {
   onSubmit: (values: NewEntry) => void;
   onCancel: () => void;
 }
-
-/* const genderOptions: GenderOption[] = [
-  { value: Gender.Male, label: "Male" },
-  { value: Gender.Female, label: "Female" },
-  { value: Gender.Other, label: "Other" }
-]; */
 
 export const AddEntryForm = ({ onSubmit, onCancel } : Props ) => {
   const [{ diagnoses }] = useStateValue();
@@ -40,17 +29,17 @@ export const AddEntryForm = ({ onSubmit, onCancel } : Props ) => {
       validate={values => {
         const requiredError = "Field is required";
         const errors: { [field: string]: string } = {};
-        if (!values.type) {
-          errors.name = requiredError;
+        if (!values.type || values.type !== "HealthCheck") {
+          errors.type = requiredError;
         }
         if (!values.description) {
-          errors.ssn = requiredError;
+          errors.description = requiredError;
         }
         if (!values.date) {
-          errors.dateOfBirth = requiredError;
+          errors.date = requiredError;
         }
         if (!values.specialist) {
-          errors.occupation = requiredError;
+          errors.specialist = requiredError;
         }
         return errors;
       }}
