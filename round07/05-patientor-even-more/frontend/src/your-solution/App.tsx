@@ -13,7 +13,7 @@ import PatientDetails from "./components/Patient";
 export { reducer, StateProvider } from "./state";
 
 // ** enter commit sha of your repository in here **
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = '6a50519';
 
 
 export const App = () => {
