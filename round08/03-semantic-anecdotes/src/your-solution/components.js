@@ -6,6 +6,11 @@ import { addAnecdote, voteAnecdote } from '../redux/reducer-anecdote'
 import { setNotification, clearNotification } from '../redux/reducer-notification'
 import { setFilter } from '../redux/reducer-filter'
 
+import {
+  Button, Card, Input,
+  Message, Modal, TextArea
+} from 'semantic-ui-react';
+
 //
 // Notification
 //
@@ -19,11 +24,20 @@ export const Notification = () => {
     marginBottom: 10,
     display: notification.length ? 'block' : 'none'
   }
+
+  if (!notification.length) {
+    return null
+  }
+
+  const anecdoteStart = notification.indexOf('"')
+  const action = notification.slice(0, anecdoteStart)
+  const anecdote = notification.slice(anecdoteStart)
+
   return (
-    <div style={style}>
-      {/* render here notification... */}
-      {notification}
-    </div>
+    <Message>
+      <Message.Header>{action}</Message.Header>
+      <Message.Content>{anecdote}</Message.Content>
+    </Message>
   )
 }
 
@@ -31,31 +45,60 @@ export const Notification = () => {
 // AnecdoteForm
 //
 
-export const AnecdoteForm = () => {
-
+export const AnecdoteForm = ({ modalOpen, closeModal }) => {
   const dispatch = useDispatch()
+
+  const notify = anecdote => {
+    dispatch(setNotification(`You added "${anecdote}"`))
+    setTimeout(() => dispatch(clearNotification()), 5000)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(addAnecdote(e.target.content.value))
+    notify(e.target.content.value)
     e.target.content.value = ''
-  }
-
-  const style = {
-    marginTop: 5,
-    marginBottom: 5,
+    closeModal()
   }
 
   return (
-    <div style={style}>
-      <form onSubmit={handleSubmit}>
-        <input name='content' />
-        <button>create</button>
-      </form>
-    </div>
+    <Modal
+      as='form'
+      open={modalOpen}
+      onClose={closeModal}
+      onSubmit={handleSubmit}
+      centered={false}
+      size='large'
+    >
+      <Modal.Header>New anecdote</Modal.Header>
+
+      <Modal.Content>
+        <TextArea style={{width:'100%'}} name='content'/>
+      </Modal.Content>
+
+      <Modal.Actions>
+        <Button
+          basic
+          type='button'
+          color='black'
+          onClick={closeModal}
+          content='Cancel'
+          icon='remove'
+        />
+        <Button
+          basic
+          type='submit'
+          color='green'
+          content='Create'
+          icon='checkmark'
+        />
+      </Modal.Actions>
+
+    </Modal>
   )
 
 }
+
 
 //
 // AnecdoteList
@@ -71,7 +114,7 @@ export const AnecdoteList = () => {
   const dispatch = useDispatch()
 
   const notify = anecdote => {
-    dispatch(setNotification(`you voted "${anecdote}"`))
+    dispatch(setNotification(`You voted "${anecdote}"`))
     setTimeout(() => dispatch(clearNotification()), 5000)
   }
 
@@ -80,20 +123,21 @@ export const AnecdoteList = () => {
     notify(anecdote)
   }
 
-  return (
-    <div style={{ marginTop: 5 }}>
-      {anecdotes.map(anecdote =>
-        <div key={anecdote.id}>
-          <div>
-            {anecdote.content}
-          </div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={handleVoteClick(anecdote.id, anecdote.content)}>vote</button>
-          </div>
-        </div>
-      )}
-    </div>
+  return anecdotes.map(anecdote =>
+    <Card key={anecdote.id} fluid>
+      <Card.Content content={anecdote.content} />
+      <Card.Content extra>
+        {anecdote.votes} votes
+      </Card.Content>
+      <Card.Content>
+        <Button
+          basic
+          color='green'
+          onClick={handleVoteClick(anecdote.id, anecdote.content)}
+          content='Vote'
+        />
+      </Card.Content>
+    </Card>
   )
 }
 
@@ -108,13 +152,12 @@ export const Filter = () => {
   const handleChange = (event) => {
     dispatch(setFilter(event.target.value))
   }
-  const style = {
-    marginBottom: 10
-  }
 
   return (
-    <div style={style}>
-      filter <input onChange={handleChange} />
-    </div>
+    <Input
+      icon={{ name: 'search'}}
+      placeholder='Search...'
+      onChange={handleChange}
+    />
   )
 }
