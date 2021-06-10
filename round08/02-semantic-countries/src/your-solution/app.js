@@ -1,8 +1,9 @@
 
-
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Filter, Countries } from './components'
+import 'semantic-ui-css/semantic.min.css';
+import { Container, Divider, Grid, Segment } from 'semantic-ui-react';
 
 // *** ENTER COMMIT SHA OF YOUR REPO IN HERE
 export const commitSHA = '-commit-sha-in-here-';
@@ -33,15 +34,31 @@ export const App = () => {
     : countries
 
   return (
-    <div>
+    <Container>
 
-      <Filter value={filter} handleChange={handleFilterChange} />
-      <Countries
-        countries={countriesToShow}
-        handleCountryClick={handleCountryClick}
-      />
+      <Divider hidden />
 
-    </div>
+      <Segment placeholder>
+        <Grid columns={2} textAlign='center'>
+          <Grid.Row verticalAlign='middle'>
+
+            <Grid.Column>
+              <Filter value={filter} handleChange={handleFilterChange} />
+            </Grid.Column>
+
+            <Grid.Column>
+              <Countries
+                filterLength={filter.length}
+                countries={countriesToShow}
+                handleCountryClick={handleCountryClick}
+              />
+            </Grid.Column>
+
+          </Grid.Row>
+        </Grid>
+      </Segment>
+
+    </Container>
   )
 
 }

@@ -1,16 +1,47 @@
+import {
+  Button, Divider, Form, Header, Icon,
+  Image, Input, Label, Message, Segment
+} from 'semantic-ui-react';
 
 
 export const Filter = ({ value, handleChange }) =>
-  <p>
-    find countries <input value={value} onChange={handleChange} />
-  </p>
+  <>
+    <Header icon>
+      <Icon name='search' />
+      Find Country
+    </Header>
+
+    <Divider hidden />
+
+    <Input
+      icon={{ name: 'search', circular: true }}
+      placeholder='Search countries...'
+      value={value} onChange={handleChange}
+    />
+  </>
 
 
-export const Countries = ({ countries, handleCountryClick }) => {
+export const Countries = ({ filterLength, countries, handleCountryClick }) => {
+  if (!filterLength) {
+    return <Message>Enter search criteria</Message>
+  }
+
+  if (!countries.length) {
+    return <Message>No country was found</Message>
+  }
 
   if (countries.length > 10) {
     return (
-      <div>Too many matches, specify another filter</div>
+    <Message>
+      <Message.Header>
+        <Label>
+          <Icon name='flag' /> {countries.length} countries
+        </Label>
+      </Message.Header>
+      <Message.Content>
+        Too many matches, specify another filter
+      </Message.Content>
+    </Message>
     )
   }
 
@@ -21,7 +52,7 @@ export const Countries = ({ countries, handleCountryClick }) => {
   }
 
   return (
-    <>
+    <Button.Group basic vertical>
       {countries.map(country =>
         <CountryName
           key={country.alpha2Code}
@@ -29,33 +60,40 @@ export const Countries = ({ countries, handleCountryClick }) => {
           handleClick={handleCountryClick}
         />
       )}
-    </>
+    </Button.Group>
   )
 
 }
 
-const CountryDetails = ({ country }) =>
-  <>
-    <h2>{country.name}</h2>
 
-    <div>capital {country.capital}</div>
-    <div>population {country.population}</div>
+const CountryDetails = ({ country }) => {
+  const languages = country.languages.map(language => language.name)
+  return (
+    <Segment>
+      <Header as='h2'>
+        <Image src={country.flag} size='medium' alt={`${country.name} flag`} />
+        {country.name}
+      </Header>
 
-    <h3>languages</h3>
+      <Form>
+        <Form.Input label='Capital' defaultValue={country.capital} readOnly />
+        <Form.Input
+          label='Population'
+          defaultValue={country.population}
+          readOnly
+        />
 
-    <ul>
-      {country.languages.map(language =>
-        <li key={language.iso639_1}>{language.name}</li>
-      )}
-    </ul>
+        <Form.Input
+          label='Languages'
+          defaultValue={languages.join(", ")}
+          readOnly
+        />
 
-    <img src={country.flag} alt={`${country.name} flag`} width="100" />
-  </>
+      </Form>
+    </Segment>
+  )
+}
 
 
 const CountryName = ({ country, handleClick }) =>
-  <div>
-    {country.name}
-    <button value={country.name} onClick={handleClick}>show</button>
-  </div>
-
+  <Button value={country.name} onClick={handleClick}>{country.name}</Button>
