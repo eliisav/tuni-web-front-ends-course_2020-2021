@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { addAnecdote, voteAnecdote } from '../redux/reducer-anecdote'
@@ -7,7 +7,7 @@ import { setNotification, clearNotification } from '../redux/reducer-notificatio
 import { setFilter } from '../redux/reducer-filter'
 
 import {
-  Button, Card, Input,
+  Button, Card, Form, Input,
   Message, Modal, TextArea
 } from 'semantic-ui-react';
 
@@ -17,13 +17,6 @@ import {
 
 export const Notification = () => {
   const notification = useSelector(state => state.notification)
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1,
-    marginBottom: 10,
-    display: notification.length ? 'block' : 'none'
-  }
 
   if (!notification.length) {
     return null
@@ -46,6 +39,7 @@ export const Notification = () => {
 //
 
 export const AnecdoteForm = ({ modalOpen, closeModal }) => {
+  const [ newAnecdote, setNewAnecdote ] = useState('')
   const dispatch = useDispatch()
 
   const notify = anecdote => {
@@ -53,33 +47,36 @@ export const AnecdoteForm = ({ modalOpen, closeModal }) => {
     setTimeout(() => dispatch(clearNotification()), 5000)
   }
 
+  const handleChange = (event, data) => {
+    setNewAnecdote(data.value)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(addAnecdote(e.target.content.value))
-    notify(e.target.content.value)
-    e.target.content.value = ''
+    dispatch(addAnecdote(newAnecdote))
+    notify(newAnecdote)
+    setNewAnecdote('')
     closeModal()
   }
 
   return (
     <Modal
-      as='form'
       open={modalOpen}
       onClose={closeModal}
-      onSubmit={handleSubmit}
       centered={false}
       size='large'
     >
       <Modal.Header>New anecdote</Modal.Header>
 
       <Modal.Content>
-        <TextArea style={{width:'100%'}} name='content'/>
+        <Form>
+          <TextArea onChange={handleChange} required />
+        </Form>
       </Modal.Content>
 
       <Modal.Actions>
         <Button
           basic
-          type='button'
           color='black'
           onClick={closeModal}
           content='Cancel'
@@ -87,7 +84,7 @@ export const AnecdoteForm = ({ modalOpen, closeModal }) => {
         />
         <Button
           basic
-          type='submit'
+          onClick={handleSubmit}
           color='green'
           content='Create'
           icon='checkmark'

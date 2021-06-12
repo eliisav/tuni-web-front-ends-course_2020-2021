@@ -22,13 +22,12 @@ export const App = () => {
 
   return (
     <Container>
-
       <Divider hidden />
 
       <Menu borderless>
         <Menu.Item header>Anecdotes</Menu.Item>
 
-        <Menu.Item header>
+        <Menu.Item>
           <Button basic color='green' onClick={() => openModal()}>New</Button>
         </Menu.Item>
 
@@ -45,6 +44,7 @@ export const App = () => {
       <Notification />
       <AnecdoteList />
 
+      <Divider hidden />
     </Container>
   )
 }
