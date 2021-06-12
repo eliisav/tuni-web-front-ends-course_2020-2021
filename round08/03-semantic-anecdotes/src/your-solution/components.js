@@ -8,7 +8,7 @@ import { setFilter } from '../redux/reducer-filter'
 
 import {
   Button, Card, Form, Input,
-  Message, Modal, TextArea
+  Message, Modal, TextArea, Popup
 } from 'semantic-ui-react';
 
 //
@@ -127,11 +127,18 @@ export const AnecdoteList = () => {
         {anecdote.votes} votes
       </Card.Content>
       <Card.Content>
-        <Button
-          basic
-          color='green'
-          onClick={handleVoteClick(anecdote.id, anecdote.content)}
-          content='Vote'
+        <Popup
+          on='hover'
+          content='Vote for me please!'
+          position='right center'
+          trigger={
+            <Button
+              basic
+              color='green'
+              onClick={handleVoteClick(anecdote.id, anecdote.content)}
+              content='Vote'
+            />
+          }
         />
       </Card.Content>
     </Card>
