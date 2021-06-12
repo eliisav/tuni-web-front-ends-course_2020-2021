@@ -1,10 +1,17 @@
 
-import React from 'react'
+import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { addAnecdote, voteAnecdote } from '../redux/reducer-anecdote'
 import { setNotification, clearNotification } from '../redux/reducer-notification'
 import { setFilter } from '../redux/reducer-filter'
+
+import { Search } from 'react-bootstrap-icons'
+import {
+  Alert, Button, Card, Form,
+  FormControl, InputGroup, Modal
+} from 'react-bootstrap'
+
 
 //
 // Notification
@@ -12,18 +19,20 @@ import { setFilter } from '../redux/reducer-filter'
 
 export const Notification = () => {
   const notification = useSelector(state => state.notification)
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1,
-    marginBottom: 10,
-    display: notification.length ? 'block' : 'none'
+
+  if (!notification.length) {
+    return null
   }
+
+  const anecdoteStart = notification.indexOf('"')
+  const action = notification.slice(0, anecdoteStart)
+  const anecdote = notification.slice(anecdoteStart)
+
   return (
-    <div style={style}>
-      {/* render here notification... */}
-      {notification}
-    </div>
+    <Alert variant='success'>
+      <Alert.Heading>{action}</Alert.Heading>
+      {anecdote}
+    </Alert>
   )
 }
 
@@ -31,28 +40,46 @@ export const Notification = () => {
 // AnecdoteForm
 //
 
-export const AnecdoteForm = () => {
-
+export const AnecdoteForm = ({ modalOpen, closeModal }) => {
+  const [ newAnecdote, setNewAnecdote ] = useState('')
   const dispatch = useDispatch()
+
+  const notify = anecdote => {
+    dispatch(setNotification(`You added "${anecdote}"`))
+    setTimeout(() => dispatch(clearNotification()), 5000)
+  }
+
+  const handleChange = (event) => {
+    setNewAnecdote(event.target.value)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(addAnecdote(e.target.content.value))
-    e.target.content.value = ''
-  }
-
-  const style = {
-    marginTop: 5,
-    marginBottom: 5,
+    dispatch(addAnecdote(newAnecdote))
+    notify(newAnecdote)
+    setNewAnecdote('')
+    closeModal()
   }
 
   return (
-    <div style={style}>
-      <form onSubmit={handleSubmit}>
-        <input name='content' />
-        <button>create</button>
-      </form>
-    </div>
+    <Modal show={modalOpen} onHide={closeModal}>
+      <Modal.Header closeButton>
+        <Modal.Title>New anecdote</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Control as="textarea" rows={3} onChange={handleChange} />
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={closeModal}>
+          Cancel
+        </Button>
+        <Button variant="primary" onClick={handleSubmit}>
+          Create
+        </Button>
+      </Modal.Footer>
+    </Modal>
   )
 
 }
@@ -71,7 +98,7 @@ export const AnecdoteList = () => {
   const dispatch = useDispatch()
 
   const notify = anecdote => {
-    dispatch(setNotification(`you voted "${anecdote}"`))
+    dispatch(setNotification(`You voted "${anecdote}"`))
     setTimeout(() => dispatch(clearNotification()), 5000)
   }
 
@@ -80,20 +107,20 @@ export const AnecdoteList = () => {
     notify(anecdote)
   }
 
-  return (
-    <div style={{ marginTop: 5 }}>
-      {anecdotes.map(anecdote =>
-        <div key={anecdote.id}>
-          <div>
-            {anecdote.content}
-          </div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={handleVoteClick(anecdote.id, anecdote.content)}>vote</button>
-          </div>
-        </div>
-      )}
-    </div>
+  return anecdotes.map(anecdote =>
+    <Card key={anecdote.id} className="mb-2">
+      <Card.Header>{anecdote.content}</Card.Header>
+      <Card.Body>
+        {anecdote.votes} votes
+        <Button
+          onClick={handleVoteClick(anecdote.id, anecdote.content)}
+          variant="outline-primary"
+          className="mx-2"
+          >
+          Vote
+        </Button>
+      </Card.Body>
+    </Card>
   )
 }
 
@@ -108,13 +135,23 @@ export const Filter = () => {
   const handleChange = (event) => {
     dispatch(setFilter(event.target.value))
   }
-  const style = {
-    marginBottom: 10
-  }
 
   return (
-    <div style={style}>
-      filter <input onChange={handleChange} />
-    </div>
+    <Form inline>
+      <InputGroup>
+
+        <InputGroup.Prepend>
+          <InputGroup.Text><Search /></InputGroup.Text>
+        </InputGroup.Prepend>
+        
+        <Form.Control
+          type="text"
+          onChange={handleChange}
+          placeholder="Search"
+          className="mr-sm-2"
+        />
+
+      </InputGroup>
+    </Form>
   )
 }
