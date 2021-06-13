@@ -7,7 +7,7 @@ export {default as store} from '../redux/store'
 
 
 // ** enter commit sha of your repository in here **
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = 'e608043';
 
 export const App = () => {
   const [modalOpen, setModalOpen] = useState(false)

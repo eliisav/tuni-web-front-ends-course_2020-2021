@@ -7,7 +7,7 @@ import React from 'react';
 
 
 // ** ENTER COMMIT SHA OF YOUR REPO IN HERE **
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = 'cf1b6b5';
 
 export const App = () => {
 

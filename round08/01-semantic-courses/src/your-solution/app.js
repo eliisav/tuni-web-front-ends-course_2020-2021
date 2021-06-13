@@ -6,7 +6,7 @@ import { Container, Divider, Header } from 'semantic-ui-react';
 
 
 // ** ENTER COMMIT SHA OF YOUR REPO IN HERE **
-export const commitSHA = '-commit-sha-in-here-';
+export const commitSHA = '24df09b';
 
 export const App = () => {
 
