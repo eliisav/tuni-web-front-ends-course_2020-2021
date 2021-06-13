@@ -70,7 +70,7 @@ export const AnecdoteForm = ({ modalOpen, closeModal }) => {
 
       <Modal.Content>
         <Form>
-          <TextArea onChange={handleChange} required />
+          <TextArea onChange={handleChange} />
         </Form>
       </Modal.Content>
 
