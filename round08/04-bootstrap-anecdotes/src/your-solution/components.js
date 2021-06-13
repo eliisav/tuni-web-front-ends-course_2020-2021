@@ -8,8 +8,8 @@ import { setFilter } from '../redux/reducer-filter'
 
 import { Search } from 'react-bootstrap-icons'
 import {
-  Alert, Button, Card, Form,
-  FormControl, InputGroup, Modal
+  Alert, Button, Card, Form, InputGroup,
+  Modal, OverlayTrigger, Tooltip
 } from 'react-bootstrap'
 
 
@@ -112,13 +112,22 @@ export const AnecdoteList = () => {
       <Card.Header>{anecdote.content}</Card.Header>
       <Card.Body>
         {anecdote.votes} votes
-        <Button
-          onClick={handleVoteClick(anecdote.id, anecdote.content)}
-          variant="outline-primary"
-          className="mx-2"
-          >
-          Vote
-        </Button>
+        <OverlayTrigger
+          placement='right'
+          overlay={
+            <Tooltip>
+              Vote for me please!
+            </Tooltip>
+          }
+        >
+          <Button
+            onClick={handleVoteClick(anecdote.id, anecdote.content)}
+            variant="outline-primary"
+            className="mx-2"
+            >
+            Vote
+          </Button>
+        </OverlayTrigger>
       </Card.Body>
     </Card>
   )
@@ -147,7 +156,7 @@ export const Filter = () => {
         <Form.Control
           type="text"
           onChange={handleChange}
-          placeholder="Search"
+          placeholder="Search ..."
           className="mr-sm-2"
         />
 
