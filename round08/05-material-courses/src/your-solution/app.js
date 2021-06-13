@@ -12,20 +12,20 @@ export const commitSHA = '-commit-sha-in-here-';
 export const App = () => {
 
   return (
-      <Container maxWidth="md">
-        <Box my={4}>
+    <Container maxWidth="md">
+      <Box my={4}>
 
-          <Typography variant="h4" component="h1" align="center">
-            Web development curriculum
-          </Typography>
+        <Typography variant="h4" component="h1" align="center">
+          Web development curriculum
+        </Typography>
 
-          <Divider />
+        <Divider />
 
-          {courses.map(course =>
-            <Course key={course.id} course={course} />
-          )}
-          
-        </Box>
-      </Container>
+        {courses.map(course =>
+          <Course key={course.id} course={course} />
+        )}
+
+      </Box>
+    </Container>
   )
 }
