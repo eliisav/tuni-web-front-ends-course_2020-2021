@@ -22,7 +22,7 @@ const Content = ({ parts }) => {
 
 const Part = ({ part }) =>
   <Table.Row>
-    <Table.Cell width='10'>{part.name}</Table.Cell>
+    <Table.Cell>{part.name}</Table.Cell>
     <Table.Cell>{part.exercises}</Table.Cell>
   </Table.Row>
 
@@ -30,7 +30,9 @@ const Total = ({ parts }) => {
   const total = parts.reduce((acc, cur) => acc + cur.exercises, 0)
   return (
     <Table.Row>
-      <Table.HeaderCell><Label ribbon>Exercises total</Label></Table.HeaderCell>
+      <Table.HeaderCell>
+        <Label ribbon>Exercises total</Label>
+      </Table.HeaderCell>
       <Table.HeaderCell>{total}</Table.HeaderCell>
     </Table.Row>
   )
@@ -45,7 +47,7 @@ export const Course = ({ course }) => {
 
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Part</Table.HeaderCell>
+            <Table.HeaderCell width={11}>Part</Table.HeaderCell>
             <Table.HeaderCell>Exercises</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
